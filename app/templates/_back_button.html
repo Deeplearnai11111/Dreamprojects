@@ -1,0 +1,4 @@
+<!-- Reusable back button: tries history.back(), falls back to root -->
+<div class="back-button-wrap" style="margin-bottom:12px;">
+    <button class="back-btn" onclick="(function(e){e.preventDefault(); try{ if(document.referrer && document.referrer !== window.location.href){ window.history.back(); return; } }catch(err){} window.location.href='/'; })(event)">← Back</button>
+</div>

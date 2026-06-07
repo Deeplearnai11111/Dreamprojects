@@ -1,0 +1,942 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ===================================
+REGISTER CSS
+=================================== -->
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+    'static',
+    filename='css/register.css'
+) }}"
+>
+
+
+
+<!-- ===================================
+REGISTER PAGE
+=================================== -->
+
+<div class="register-page">
+
+
+    <!-- ===================================
+    BACKGROUND GLOW
+    ==================================== -->
+
+    <div class="bg-glow glow-1"></div>
+
+    <div class="bg-glow glow-2"></div>
+
+
+
+    <!-- ===================================
+    LEFT SIDE
+    ==================================== -->
+
+    <div class="register-left">
+
+
+        <!-- LOGO -->
+
+        <div class="brand-header">
+
+            <div class="brand-icon">
+
+                ✦
+
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+
+                    CLEANZO
+
+                </h1>
+
+                <p>
+
+                    PREMIUM CARE
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MINI TAG -->
+
+        <div class="mini-tag">
+
+            CONCIERGE CAR CARE
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <h1 class="main-title">
+
+            Showroom finish.
+
+            <br>
+
+            <span>
+
+                Delivered
+
+            </span>
+
+            to your parking.
+
+        </h1>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="main-description">
+
+            Schedule, track and rate every wash
+            from the comfort of your home.
+            Trained professionals, eco-friendly
+            products and on-time arrivals guaranteed.
+
+        </p>
+
+
+
+        <!-- GLASS CARDS -->
+
+        <div class="feature-grid">
+
+
+            <!-- CARD -->
+
+            <div class="glass-card">
+
+                <div class="card-icon">
+
+                    ✨
+
+                </div>
+
+                <h3>
+
+                    Showroom Finish
+
+                </h3>
+
+                <p>
+
+                    Premium detailing
+                    with deep shine finish.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD -->
+
+            <div class="glass-card">
+
+                <div class="card-icon">
+
+                    📍
+
+                </div>
+
+                <h3>
+
+                    Live Tracking
+
+                </h3>
+
+                <p>
+
+                    Track every wash
+                    in realtime instantly.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD -->
+
+            <div class="glass-card">
+
+                <div class="card-icon">
+
+                    🛡️
+
+                </div>
+
+                <h3>
+
+                    Verified Staff
+
+                </h3>
+
+                <p>
+
+                    Society verified
+                    trusted professionals.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATS -->
+
+        <div class="stats-row">
+
+
+            <div class="stat-card">
+
+                <h2>
+
+                    500+
+
+                </h2>
+
+                <p>
+
+                    Cars Cleaned
+
+                </p>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <h2>
+
+                    4.9★
+
+                </h2>
+
+                <p>
+
+                    Customer Rating
+
+                </p>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <h2>
+
+                    24/7
+
+                </h2>
+
+                <p>
+
+                    Premium Support
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ===================================
+    RIGHT SIDE
+    ==================================== -->
+
+    <div class="register-right">
+
+
+        <div class="register-card">
+
+
+            <!-- ===================================
+            MULTI STEP FORM
+            ==================================== -->
+
+            <form
+            method="POST"
+            id="multiStepForm"
+            >
+
+
+
+                <!-- ===================================
+                STEP 1
+                ==================================== -->
+
+                <div class="form-step active-step">
+
+
+                    <!-- BACK -->
+
+                    <button
+                    type="button"
+                    class="top-back-btn hidden-btn"
+                    >
+
+                        ← Back
+
+                    </button>
+
+
+
+                    <!-- STEP -->
+
+                    <div class="step-text">
+
+                        STEP 1 OF 3
+
+                    </div>
+
+
+
+                    <!-- TITLE -->
+
+                    <h2 class="register-title">
+
+                        Tell us about yourself
+
+                    </h2>
+
+
+
+                    <!-- SUBTITLE -->
+
+                    <p class="register-subtitle">
+
+                        A few quick details and you're in.
+
+                    </p>
+
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill step-1"></div>
+
+                    </div>
+
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            FULL NAME
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="full_name"
+                            placeholder="e.g. Aarav Sharma"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            PHONE NUMBER
+
+                        </label>
+
+                        <div class="phone-row">
+
+                            <div class="country-code">
+
+                                +91
+
+                            </div>
+
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="10-digit mobile number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            EMAIL ADDRESS
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="you@example.com"
+                        >
+
+                        <p class="input-note">
+                            Add your email to enable Google login and password reset.
+                        </p>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            CREATE PASSWORD
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="At least 4 characters"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                    type="button"
+                    class="continue-btn next-btn"
+                    >
+
+                        Continue →
+
+                    </button>
+
+                </div>
+
+
+
+
+
+                <!-- ===================================
+                STEP 2
+                ==================================== -->
+
+                <div class="form-step">
+
+
+                    <!-- BACK -->
+
+                    <button
+                    type="button"
+                    class="top-back-btn prev-btn"
+                    >
+
+                        ← Back
+
+                    </button>
+
+
+
+                    <!-- STEP -->
+
+                    <div class="step-text">
+
+                        STEP 2 OF 3
+
+                    </div>
+
+
+
+                    <!-- TITLE -->
+
+                    <h2 class="register-title">
+
+                        Where do we park?
+
+                    </h2>
+
+
+
+                    <!-- SUBTITLE -->
+
+                    <p class="register-subtitle">
+
+                        We deliver right to your block.
+
+                    </p>
+
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill step-2"></div>
+
+                    </div>
+
+
+
+                    <!-- SOCIETY -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            SOCIETY / APARTMENT
+
+                        </label>
+
+                        <div class="glass-select-wrapper">
+
+                            <select
+                            name="society"
+                            class="glass-select"
+                            required
+                            >
+
+                                <option value="">
+
+                                    Choose your society
+
+                                </option>
+
+                                <option>
+
+                                    Prestige Lakeside Habitat
+
+                                </option>
+
+                                <option>
+
+                                    Brigade Gateway
+
+                                </option>
+
+                                <option>
+
+                                    Sobha Dream Acres
+
+                                </option>
+
+                                <option>
+
+                                    Mantri Espana
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ROW -->
+
+                    <div class="double-row">
+
+
+                        <div class="input-group">
+
+                            <label>
+
+                                TOWER / BLOCK
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="block"
+                                placeholder="e.g. Tower A"
+                            >
+
+                        </div>
+
+
+
+                        <div class="input-group">
+
+                            <label>
+
+                                FLAT / HOUSE NO.
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="flat_number"
+                                placeholder="e.g. 1204"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-row">
+
+
+                        <button
+                        type="button"
+                        class="back-btn prev-btn"
+                        >
+
+                            Back
+
+                        </button>
+
+
+
+                        <button
+                        type="button"
+                        class="continue-btn next-btn"
+                        >
+
+                            Continue
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+                <!-- ===================================
+                STEP 3
+                ==================================== -->
+
+                <div class="form-step">
+
+
+                    <!-- BACK -->
+
+                    <button
+                    type="button"
+                    class="top-back-btn prev-btn"
+                    >
+
+                        ← Back
+
+                    </button>
+
+
+
+                    <!-- STEP -->
+
+                    <div class="step-text">
+
+                        STEP 3 OF 3
+
+                    </div>
+
+
+
+                    <!-- TITLE -->
+
+                    <h2 class="register-title">
+
+                        Which car shall we pamper?
+
+                    </h2>
+
+
+
+                    <!-- SUBTITLE -->
+
+                    <p class="register-subtitle">
+
+                        So the team can recognise your ride.
+
+                    </p>
+
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill step-3"></div>
+
+                    </div>
+
+
+
+                    <!-- CAR BRAND -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            CAR BRAND
+
+                        </label>
+
+                        <div class="glass-select-wrapper">
+
+                            <select
+                            name="car_brand"
+                            class="glass-select"
+                            >
+
+                                <option>
+
+                                    Choose brand
+
+                                </option>
+
+                                <option>
+
+                                    Hyundai
+
+                                </option>
+
+                                <option>
+
+                                    Honda
+
+                                </option>
+
+                                <option>
+
+                                    Tata
+
+                                </option>
+
+                                <option>
+
+                                    Mahindra
+
+                                </option>
+
+                                <option>
+
+                                    Kia
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CAR MODEL -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            CAR MODEL
+
+                        </label>
+
+                        <div class="glass-select-wrapper">
+
+                            <select
+                            name="car_model"
+                            class="glass-select"
+                            >
+
+                                <option>
+
+                                    Choose model
+
+                                </option>
+
+                                <option>
+
+                                    Creta
+
+                                </option>
+
+                                <option>
+
+                                    City
+
+                                </option>
+
+                                <option>
+
+                                    Nexon
+
+                                </option>
+
+                                <option>
+
+                                    Scorpio
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ROW -->
+
+                    <div class="double-row">
+
+
+                        <div class="input-group">
+
+                            <label>
+
+                                COLOUR
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="car_colour"
+                                placeholder="e.g. Pearl White"
+                            >
+
+                        </div>
+
+
+
+                        <div class="input-group">
+
+                            <label>
+
+                                REGISTRATION NO.
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="car_registration"
+                                placeholder="E.G. KA01AB1234"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-row">
+
+
+                        <button
+                        type="button"
+                        class="back-btn prev-btn"
+                        >
+
+                            Back
+
+                        </button>
+
+
+
+                        <button
+                        type="submit"
+                        class="continue-btn"
+                        >
+
+                            Create account
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+
+            <!-- LOGIN -->
+
+            <div class="login-section">
+
+                <p>
+
+                    Already have an account?
+
+                </p>
+
+                <a href="/login">
+
+                    Log in
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ===================================
+REGISTER JS
+=================================== -->
+
+<script
+src="{{ url_for(
+    'static',
+    filename='js/register.js'
+) }}">
+</script>
+
+{% endblock %}

@@ -1,0 +1,478 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ===================================
+INDEX CSS
+=================================== -->
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+    'static',
+    filename='css/index.css'
+) }}"
+>
+
+
+
+<!-- ===================================
+3D model lazy-loader: load heavy libs only on desktop or on-demand
+=================================== -->
+
+<script>
+// Lazy-load Three.js and the index 3D initializer only when needed.
+(function(){
+    function loadScript(src, cb){
+        var s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.onload = function(){ if(cb) cb(); };
+        s.onerror = function(){ if(cb) cb(); };
+        document.head.appendChild(s);
+    }
+
+    function init3DOnce(){
+        // load our index.js which expects THREE to exist
+        loadScript("{{ url_for('static', filename='js/index.js') }}");
+    }
+
+    function enableFallback(){
+        var container = document.getElementById('car3dViewer');
+        if(!container) return;
+        container.innerHTML = '\n+            <div class="model-fallback" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;">\n+                <svg width="160" height="96" viewBox="0 0 320 192" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Car preview">\n+                    <rect width="100%" height="100%" rx="12" fill="#071421"/>\n+                    <text x="50%" y="50%" fill="#39cfff" font-size="20" font-family="Inter, sans-serif" text-anchor="middle" dominant-baseline="middle">3D Preview</text>\n+                </svg>\n+                <div style="text-align:center;color:#9db4cc;">Tap to load an interactive 3D preview (may be slower on mobile)</div>\n+                <div><button id="load3dBtn" style="padding:8px 12px;border-radius:8px;border:none;background:#19a6e8;color:#012;font-weight:700;cursor:pointer;">Load 3D Preview</button></div>\n+            </div>';
+        var btn = document.getElementById('load3dBtn');
+        if(btn){ btn.addEventListener('click', function(){
+            // load libs then initializer
+            loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js', function(){
+                loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js', function(){
+                    loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js', function(){
+                        init3DOnce();
+                    });
+                });
+            });
+            // optional: replace button with loading text
+            btn.innerText = 'Loading...'; btn.disabled = true;
+        }); }
+    }
+
+    // If desktop (wider screens) load automatically, else show fallback + on-demand loader
+    if(window.innerWidth >= 992){
+        loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js', function(){
+            loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js', function(){
+                loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js', function(){
+                    init3DOnce();
+                });
+            });
+        });
+    } else {
+        // Defer heavy initialization on mobile; show lightweight fallback and allow on-demand load
+        document.addEventListener('DOMContentLoaded', enableFallback);
+    }
+})();
+</script>
+
+
+
+<!-- ===================================
+PREMIUM HERO SECTION
+=================================== -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+
+        <!-- ===================================
+        LEFT SIDE
+        ==================================== -->
+
+        <div class="hero-left">
+
+
+
+            <!-- ===================================
+            TOP BAR
+            ==================================== -->
+
+            <div class="hero-top-row">
+
+
+
+                <!-- BRAND -->
+
+                <div class="hero-brand">
+
+                    <div class="brand-icon">
+
+                        ✦
+
+                    </div>
+
+                    <div class="brand-text">
+
+                        <h2>
+
+                            CLEANZO
+
+                        </h2>
+
+                        <p>
+
+                            PREMIUM CARE
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BETA -->
+
+                
+
+            </div>
+
+
+
+            <!-- ===================================
+            MINI TAG
+            ==================================== -->
+
+            <div class="mini-tag">
+
+                CONCIERGE CAR CARE
+
+            </div>
+
+
+
+            <!-- ===================================
+            TITLE
+            ==================================== -->
+
+            <h1 class="hero-title">
+
+                Showroom finish.
+
+                <br>
+
+                <span>
+
+                    Delivered
+
+                </span>
+
+                to your parking.
+
+            </h1>
+
+
+
+            <!-- ===================================
+            DESCRIPTION
+            ==================================== -->
+
+            <p class="hero-description">
+
+                Schedule, track and rate every wash
+                from the comfort of your home.
+
+                Trained professionals,
+                eco-friendly products and
+                on-time arrivals guaranteed.
+
+            </p>
+
+
+
+            <!-- ===================================
+            FEATURE CARDS
+            ==================================== -->
+
+            <div class="hero-features">
+
+
+
+                <!-- CARD -->
+
+                <div class="mini-feature-card">
+
+                    <div class="feature-icon-box">
+
+                        ✨
+
+                    </div>
+
+                    <h3>
+
+                        Showroom Finish
+
+                    </h3>
+
+                    <p>
+
+                        Premium detailing
+                        with deep shine finish.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD -->
+
+                <div class="mini-feature-card">
+
+                    <div class="feature-icon-box">
+
+                        📍
+
+                    </div>
+
+                    <h3>
+
+                        Live Tracking
+
+                    </h3>
+
+                    <p>
+
+                        Track every wash
+                        in realtime instantly.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD -->
+
+                <div class="mini-feature-card">
+
+                    <div class="feature-icon-box">
+
+                        🛡️
+
+                    </div>
+
+                    <h3>
+
+                        Verified Staff
+
+                    </h3>
+
+                    <p>
+
+                        Society verified
+                        trusted professionals.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ===================================
+            STATS
+            ==================================== -->
+
+            <div class="hero-stats">
+
+
+
+                <div class="hero-stat-card">
+
+                    <h2>
+
+                        500+
+
+                    </h2>
+
+                    <p>
+
+                        Cars Cleaned
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="hero-stat-card">
+
+                    <h2>
+
+                        4.9★
+
+                    </h2>
+
+                    <p>
+
+                        Customer Rating
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="hero-stat-card">
+
+                    <h2>
+
+                        24/7
+
+                    </h2>
+
+                    <p>
+
+                        Premium Support
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- ===================================
+        RIGHT SIDE
+        ==================================== -->
+
+        <div class="hero-right">
+
+
+
+            <!-- ===================================
+            3D MODEL CARD
+            ==================================== -->
+
+            <div class="model-card">
+
+
+
+                <!-- GLOW -->
+
+                <div class="hero-glow"></div>
+
+
+
+                <!-- 3D MODEL -->
+
+                <div class="hero-image-box">
+
+                    <div id="car3dViewer"></div>
+
+                </div>
+
+
+
+                <!-- ===================================
+                CTA BUTTONS
+                ==================================== -->
+
+                <div class="hero-cta">
+
+
+
+                    {% if current_user.is_authenticated %}
+
+                        <a
+                        href="/tips"
+                        class="cta-link">
+
+                            <button class="main-cta-btn">
+
+                                Explore Tips →
+
+                            </button>
+
+                        </a>
+
+
+
+                        <a
+                        href="/profile"
+                        class="cta-link">
+
+                            <button class="secondary-cta-btn">
+
+                                Open My Account
+
+                            </button>
+
+                        </a>
+
+                    {% else %}
+
+                        <a
+                        href="/register"
+                        class="cta-link">
+
+                            <button class="main-cta-btn">
+
+                                Create account →
+
+                            </button>
+
+                        </a>
+
+
+
+                        <a
+                        href="/login"
+                        class="cta-link">
+
+                            <button class="secondary-cta-btn">
+
+                                I already have an account
+
+                            </button>
+
+                        </a>
+
+                        <!-- GOOGLE LOGIN BUTTON -->
+                        <div class="google-hero-wrap" style="text-align:center;margin-top:14px;">
+                            <a href="{{ url_for('auth.google_login') }}" class="google-btn google-hero-btn">
+                                <span class="google-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48" role="img" aria-label="Google">
+                                        <path fill="#4285F4" d="M24 9.5c3.9 0 6.6 1.7 8.1 3.1l5.9-5.9C35.9 3 30.6 1 24 1 14.8 1 6.8 6.6 3 14.9l6.9 5.3C12.6 15.2 17.8 9.5 24 9.5z"/>
+                                        <path fill="#34A853" d="M46.5 24.1c0-1.6-0.1-3.1-0.4-4.6H24v8.7h12.7c-0.6 3.4-2.6 6.3-5.6 8.3l8.6 6.7C43.4 36.6 46.5 30.9 46.5 24.1z"/>
+                                        <path fill="#FBBC05" d="M9.9 28.9c-1.1-3.3-1.1-6.8 0-10.1L3 13.5C1.1 17.5 0 20.7 0 24c0 3.3 1.1 6.5 3 10.5l6.9-5.6z"/>
+                                        <path fill="#EA4335" d="M24 46c6.6 0 12.3-2 16.9-5.5l-8.6-6.7c-2 1.3-4.6 2.3-8.3 2.3-6.2 0-11.4-5.7-13.9-11.7L3 34.5C6.8 42.8 14.8 48 24 48z"/>
+                                    </svg>
+                                </span>
+                                <span class="google-text">Continue with Google</span>
+                            </a>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- index.js is loaded dynamically by the lazy loader above when needed -->
+
+{% endblock %}

@@ -1,0 +1,562 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ===================================
+DASHBOARD CSS
+=================================== -->
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+    'static',
+    filename='css/dashboard.css'
+) }}"
+>
+
+
+
+<!-- ===================================
+DASHBOARD PAGE
+=================================== -->
+
+<div class="dashboard-page">
+
+
+    <!-- ===================================
+    BACKGROUND GLOW
+    ==================================== -->
+
+    <div class="dashboard-glow glow-1"></div>
+
+    <div class="dashboard-glow glow-2"></div>
+
+
+
+    <!-- ===================================
+    LEFT SIDE
+    ==================================== -->
+
+    <div class="dashboard-left">
+
+
+
+        <!-- ===================================
+        WELCOME BAR
+        ==================================== -->
+
+        <div class="welcome-bar">
+
+            <div class="welcome-dot"></div>
+
+            <p>
+
+                Welcome to Clenzo,
+                {{ current_user.full_name }}
+
+            </p>
+
+        </div>
+
+
+
+
+
+        <!-- ===================================
+        USER HEADER
+        ==================================== -->
+
+        <div class="user-header">
+
+
+            <div class="user-info">
+
+                <h1 class="user-name">
+
+                    {{ current_user.full_name }}
+
+                </h1>
+
+                <p class="user-subtitle">
+
+                    Premium car care dashboard
+
+                </p>
+
+            </div>
+
+
+
+            <div class="profile-avatar">
+
+                {{ current_user.full_name[0] }}
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- ===================================
+        USER CAR CARD
+        ==================================== -->
+
+        {% if cars %}
+
+        <div class="dashboard-card car-card">
+
+
+            <div class="car-left">
+
+
+                <div class="car-icon">
+
+                    🚘
+
+                </div>
+
+
+
+                <div class="car-info">
+
+                    <span>
+
+                        YOUR CAR
+
+                    </span>
+
+                    <h2>
+
+                        {{ cars[0].car_brand }}
+
+                        {{ cars[0].car_model }}
+
+                    </h2>
+
+                    <p>
+
+                        {{ cars[0].car_colour }}
+                        ·
+                        {{ cars[0].registration_number }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="car-status">
+
+                Active
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+
+
+
+        <!-- ===================================
+        PLAN CARD
+        ==================================== -->
+
+        <div class="dashboard-card plan-card">
+
+
+            <div class="plan-content">
+
+
+                <span class="small-label">
+
+                    {% if current_user.active_plan == 'No Active Plan' %}
+
+                        NO ACTIVE PLAN
+
+                    {% else %}
+
+                        ACTIVE PLAN
+
+                    {% endif %}
+
+                </span>
+
+
+
+                <h2>
+
+                    {% if current_user.active_plan == 'No Active Plan' %}
+
+                        Get started today
+
+                    {% else %}
+
+                        {{ current_user.active_plan }}
+
+                    {% endif %}
+
+                </h2>
+
+
+
+                <p>
+
+                    Schedule your first wash
+                    in under a minute
+
+                </p>
+
+            </div>
+
+
+
+            <a href="/schedule">
+
+                <button class="schedule-btn">
+
+                    Schedule
+
+                </button>
+
+            </a>
+
+        </div>
+
+
+
+
+
+        <!-- ===================================
+        SERVICES TITLE
+        ==================================== -->
+
+        <div class="section-title">
+
+            SERVICES
+
+        </div>
+
+
+
+
+
+        <!-- ===================================
+        SERVICES GRID
+        ==================================== -->
+
+        <div class="services-grid">
+
+
+
+            <!-- ===================================
+            SCHEDULE CARD
+            ==================================== -->
+
+            <a
+            href="/schedule"
+            class="service-card large-card"
+            >
+
+                <div class="service-icon">
+
+                    📅
+
+                </div>
+
+                <h3>
+
+                    Schedule a wash
+
+                </h3>
+
+                <p>
+
+                    Pick a frequency and slot
+
+                </p>
+
+            </a>
+
+
+
+
+
+            <!-- ===================================
+            TRACKING CARD
+            ==================================== -->
+
+            <a
+                href="/tracking"
+            class="service-card green-card"
+            >
+
+                <div class="service-icon">
+
+                    📍
+
+                </div>
+
+                <h3>
+
+                    Track
+
+                </h3>
+
+                <p>
+
+                    Live wash status
+
+                </p>
+            </a>
+
+
+
+
+
+            <!-- ===================================
+            PAYMENT CARD
+            ==================================== -->
+
+            <a
+            href="/payments"
+            class="service-card orange-card"
+            >
+
+                <div class="service-icon">
+
+                    💳
+
+                </div>
+
+                <h3>
+
+                    Payment
+
+                </h3>
+
+                <p>
+
+                    Plans & history
+
+                </p>
+
+            </a>
+
+
+
+
+
+            <!-- ===================================
+            PROFILE CARD
+            ==================================== -->
+
+            <a
+            href="/profile"
+            class="service-card purple-card"
+            >
+
+                <div class="service-icon">
+
+                    👤
+
+                </div>
+
+                <h3>
+
+                    Profile
+
+                </h3>
+
+                <p>
+
+                    Your details & support
+
+                </p>
+
+            </a>
+
+
+
+
+
+            <!-- ===================================
+            TIPS CARD
+            ==================================== -->
+
+            <a
+            href="/tips"
+            class="service-card blue-card"
+            >
+
+                <div class="service-icon">
+
+                    ✨
+
+                </div>
+
+                <h3>
+
+                    Tips
+
+                </h3>
+
+                <p>
+
+                    Care like a pro
+
+                </p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ===================================
+BOTTOM NAVBAR
+=================================== -->
+
+<div class="bottom-navbar">
+
+
+    <a
+    href="/dashboard"
+    class="bottom-nav-item active-nav"
+    >
+
+        <span>
+
+            🏠
+
+        </span>
+
+        <p>
+
+            HOME
+
+        </p>
+
+    </a>
+
+
+
+
+
+    <a
+    href="/schedule"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            📅
+
+        </span>
+
+        <p>
+
+            SCHEDULE
+
+        </p>
+
+    </a>
+
+
+
+
+
+    <a
+    href="/tracking"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            📍
+
+        </span>
+
+        <p>
+
+            TRACK
+
+        </p>
+
+    </a>
+
+
+
+
+
+    <a
+    href="/tips"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            ✨
+
+        </span>
+
+        <p>
+
+            TIPS
+
+        </p>
+
+    </a>
+
+
+
+
+
+    <a
+    href="/profile"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            👤
+
+        </span>
+
+        <p>
+
+            PROFILE
+
+        </p>
+
+    </a>
+
+</div>
+
+
+
+
+
+<!-- ===================================
+DASHBOARD JS
+=================================== -->
+
+<script
+src="{{ url_for(
+    'static',
+    filename='js/dashboard.js'
+) }}">
+</script>
+
+{% endblock %}

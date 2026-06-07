@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    <h2>Audit Logs</h2>
+
+    <p>Project activity logs (day-wise)</p>
+
+    <div style="margin-top:20px;">
+
+        <table style="width:100%;border-collapse:collapse;color:white;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Time</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Actor</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Action</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ log.created_at.strftime('%d %b %Y | %I:%M %p') }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ log.actor }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ log.action }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ log.details }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

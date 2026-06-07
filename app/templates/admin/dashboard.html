@@ -1,0 +1,1210 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+    'static',
+    filename='css/admin.css'
+) }}"
+>
+
+<div class="admin-layout">
+
+
+    <!-- ===================================
+    SIDEBAR
+    ==================================== -->
+
+    <aside
+    class="admin-sidebar"
+    id="adminSidebar">
+
+        <h1 class="sidebar-logo">
+
+            CLEAN<span>ZO</span>
+
+        </h1>
+
+        <div class="sidebar-menu">
+
+            <button
+            class="sidebar-btn active-menu"
+            data-section="dashboard-section">
+
+                Dashboard
+
+            </button>
+
+            <button
+            class="sidebar-btn"
+            data-section="schedule-section">
+
+                Schedule Control
+
+            </button>
+
+            <button class="sidebar-btn" onclick="location.href='{{ url_for('admin.admin_user_bookings') }}'">
+
+                Bookings
+
+            </button>
+
+            {% if current_user.is_admin %}
+
+                {% if current_user.role == 'super_admin' %}
+
+                <button class="sidebar-btn" onclick="location.href='{{ url_for('admin.super_admin_panel') }}'">Super Admin</button>
+
+                {% else %}
+
+                <button id="openSuperAdminBtn" class="sidebar-btn">Super Admin</button>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+        <div style="margin-top:auto;padding-top:20px;">
+            <a href="{{ url_for('auth.logout') }}"><button class="sidebar-btn" style="width:100%;background:transparent;border-radius:12px;padding:14px 18px;">Logout</button></a>
+        </div>
+
+    </aside>
+
+
+
+    <!-- ===================================
+    MAIN CONTENT
+    ==================================== -->
+
+    <main class="admin-main-content">
+
+
+        <!-- ===================================
+        TOPBAR
+        ==================================== -->
+
+        <div class="admin-topbar">
+
+            <div>
+
+                <h1 id="dynamicTitle">
+
+                    Dashboard
+
+                </h1>
+
+                <p>
+
+                    CLEANZO Operations Control Center
+
+                </p>
+
+            </div>
+
+            <button
+            class="mobile-sidebar-btn"
+            id="mobileSidebarBtn">
+
+                ☰
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ===================================
+        DASHBOARD
+        ==================================== -->
+
+        <section
+        id="dashboard-section"
+        class="admin-section active-section">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <h2>
+
+                        {{ users|length }}
+
+                    </h2>
+
+                    <p>
+
+                        Total Users
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>
+
+                        {{ frequencies|length }}
+
+                    </h2>
+
+                    <p>
+
+                        Frequencies
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>
+
+                        {{ plans|length }}
+
+                    </h2>
+
+                    <p>
+
+                        Service Tiers
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>
+
+                        ₹{{ total_revenue }}
+
+                    </h2>
+
+                    <p>
+
+                        Monthly Revenue
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================
+        SCHEDULE CONTROL
+        ==================================== -->
+
+        <section
+    id="schedule-section"
+    class="admin-section">
+
+    
+
+    <!-- Existing Schedule Content -->
+
+        
+
+
+
+            <!-- ===================================
+            HEADER
+            ==================================== -->
+
+            <div class="section-header-admin">
+
+                <div>
+
+                    <h2>
+
+                        Schedule Control Center
+
+                    </h2>
+
+                    <p>
+
+                        Frequency →
+                        Service Tier →
+                        Time Slot Management
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ===================================
+            CREATE FREQUENCY
+            ==================================== -->
+
+            <div class="admin-box">
+
+                <div class="admin-block-label">
+
+                    CREATE FREQUENCY
+
+                </div>
+
+                <form
+                method="POST"
+                action="{{ url_for('admin.create_frequency') }}"
+                class="admin-form-grid">
+
+                    <input
+                    type="text"
+                    name="name"
+                    placeholder="Frequency Name"
+                    required
+                    >
+
+                    <input
+                    type="text"
+                    name="subtitle"
+                    placeholder="Subtitle"
+                    required
+                    >
+
+                    <input
+                    type="number"
+                    name="washes_per_month"
+                    placeholder="Washes Per Month"
+                    required
+                    >
+
+                    <button
+                    type="submit"
+                    class="action-btn">
+
+                        + Create Frequency
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- ===================================
+            FREQUENCY LOOP START
+            ==================================== -->
+
+            {% for frequency in frequencies %}
+
+            <div class="admin-box">
+
+
+
+                <!-- ===================================
+                FREQUENCY HEADER
+                ==================================== -->
+
+                <div class="frequency-top-admin">
+
+                    <div>
+
+                        <div class="admin-block-label">
+
+                            FREQUENCY
+
+                        </div>
+
+                        <h2 style="font-size:42px;">
+
+                            {{ frequency.name }}
+
+                        </h2>
+
+                        <p
+                        style="
+                        color:#8ea8c7;
+                        margin-top:10px;
+                        ">
+
+                            {{ frequency.subtitle }}
+
+                        </p>
+
+                        <small
+                        style="
+                        color:#39cfff;
+                        font-size:15px;
+                        ">
+
+                            {{ frequency.washes_per_month }}
+                            Washes / Month
+
+                        </small>
+
+                    </div>
+
+                    {% if frequency.is_active %}
+
+                    <span class="live-active-dot"></span>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- ===================================
+                FREQUENCY ACTIONS
+                ==================================== -->
+
+                <div
+                class="slot-admin-actions"
+                style="margin-top:24px;">
+
+                    <a href="
+                    {{ url_for(
+                        'admin.toggle_frequency',
+                        frequency_id=frequency.id
+                    ) }}
+                    ">
+
+                        <button
+                        type="button"
+                        class="disable-slot-btn">
+
+                            {% if frequency.is_active %}
+                            Disable
+                            {% else %}
+                            Enable
+                            {% endif %}
+
+                        </button>
+
+                    </a>
+
+                    <a href="
+                    {{ url_for(
+                        'admin.delete_frequency',
+                        frequency_id=frequency.id
+                    ) }}
+                    ">
+
+                        <button
+                        type="button"
+                        class="delete-slot-btn">
+
+                            Delete
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- ===================================
+                CREATE SERVICE TIER
+                ==================================== -->
+
+                <div
+                style="
+                margin-top:45px;
+                ">
+
+                    <div class="admin-block-label">
+
+                        CREATE SERVICE TIER
+                        FOR
+                        {{ frequency.name }}
+
+                    </div>
+
+                    <form
+method="POST"
+action="{{ url_for('admin.create_plan') }}"
+class="admin-form-grid">
+
+    <!-- ===================================
+    FREQUENCY ID
+    ==================================== -->
+
+    <input
+    type="hidden"
+    name="frequency_id"
+    value="{{ frequency.id }}"
+    >
+
+
+    <!-- ===================================
+    PLAN NAME
+    ==================================== -->
+
+    <input
+    type="text"
+    name="name"
+    placeholder="Service Tier Name"
+    required
+    >
+
+
+    <!-- ===================================
+    SUBTITLE
+    ==================================== -->
+
+    <input
+    type="text"
+    name="subtitle"
+    placeholder="Service Description"
+    required
+    >
+
+
+    <!-- ===================================
+    PRICE
+    ==================================== -->
+
+    <input
+    type="number"
+    name="price"
+    placeholder="Price Per Wash"
+    required
+    >
+
+
+    <!-- ===================================
+    BADGE
+    ==================================== -->
+
+    <input
+    type="text"
+    name="badge"
+    placeholder="Badge (Optional)"
+    >
+
+
+    <!-- ===================================
+    THEME
+    ==================================== -->
+
+    <select
+    name="theme"
+    required>
+
+        <option value="prime">
+
+            Prime Theme
+
+        </option>
+
+        <option value="premium">
+
+            Premium Theme
+
+        </option>
+
+    </select>
+
+
+    <!-- ===================================
+    FEATURES
+    ==================================== -->
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="exterior_wash"
+        checked
+        >
+
+        Exterior Wash
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="interior_cleaning"
+        >
+
+        Interior Cleaning
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="tyre_rinse"
+        >
+
+        Tyre Rinse
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="tyre_dressing"
+        >
+
+        Tyre Dressing
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="dashboard_polish"
+        >
+
+        Dashboard Polish
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="vacuum_cleaning"
+        >
+
+        Vacuum Cleaning
+
+    </label>
+
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="perfume_finish"
+        >
+
+        Perfume Finish
+
+    </label>
+
+
+    <!-- ===================================
+    POPULAR PLAN
+    ==================================== -->
+
+    <label class="feature-checkbox">
+
+        <input
+        type="checkbox"
+        name="is_popular"
+        >
+
+        Mark As Popular
+
+    </label>
+
+
+    <!-- ===================================
+    SUBMIT BUTTON
+    ==================================== -->
+
+    <button
+    type="submit"
+    class="action-btn">
+
+        + Create Service Tier
+
+    </button>
+
+</form>
+
+
+
+                <!-- ===================================
+                SERVICE TIERS
+                ==================================== -->
+
+                <div
+                style="
+                margin-top:45px;
+                ">
+
+                    <div class="admin-block-label">
+
+                        {{ frequency.name }}
+                        →
+                        SERVICE TIERS
+
+                    </div>
+
+                    <div class="tier-grid-admin">
+
+                        {% for plan in plans %}
+
+                        {% if plan.frequency_id == frequency.id %}
+
+                        <div class="
+                        tier-card-admin
+
+                        {% if plan.theme == 'premium' %}
+                        premium-admin-card
+                        {% else %}
+                        prime-admin-card
+                        {% endif %}
+                        ">
+
+                            <!-- ===================================
+                            PLAN HEADER
+                            ==================================== -->
+
+                            <div class="tier-top-row">
+
+                                <span>
+
+                                    {{ plan.badge }}
+
+                                </span>
+
+                                <div class="tier-status-badge">
+
+                                    {% if plan.is_active %}
+                                    ACTIVE
+                                    {% else %}
+                                    DISABLED
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                            <h2>
+
+                                {{ plan.name }}
+
+                            </h2>
+
+                            <p>
+
+                                {{ plan.subtitle }}
+
+                            </p>
+
+                            <h3>
+
+                                ₹{{ plan.price }}
+
+                                <span>
+
+                                    / wash
+
+                                </span>
+
+                            </h3>
+
+
+
+                            <!-- ===================================
+                            FEATURES
+                            ==================================== -->
+
+                            <div
+                            style="
+                            margin-top:20px;
+                            display:flex;
+                            flex-wrap:wrap;
+                            gap:10px;
+                            ">
+
+                                {% if plan.exterior_wash %}
+
+                                <span class="slot-open-badge">
+
+                                    Exterior Wash
+
+                                </span>
+
+                                {% endif %}
+
+                                {% if plan.interior_cleaning %}
+
+                                <span class="recommended-admin-badge">
+
+                                    Interior Cleaning
+
+                                </span>
+
+                                {% endif %}
+
+                                {% if plan.tyre_rinse %}
+
+                                <span class="priority-admin-badge">
+
+                                    Tyre Rinse
+
+                                </span>
+
+                                {% endif %}
+
+                                {% if plan.tyre_dressing %}
+
+                                <span class="slot-open-badge">
+
+                                    Tyre Dressing
+
+                                </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- ===================================
+                            <!-- ===================================
+CREATE SLOT
+=================================== -->
+
+<div
+style="
+margin-top:35px;
+">
+
+    <div class="admin-block-label">
+
+        CREATE TIME SLOT
+
+    </div>
+
+    <form
+    method="POST"
+    action="{{ url_for('admin.create_slot') }}"
+    class="admin-form-grid">
+
+
+        <!-- ===================================
+        FREQUENCY ID
+        ==================================== -->
+
+        <input
+        type="hidden"
+        name="frequency_id"
+        value="{{ frequency.id }}"
+        >
+
+
+        <!-- ===================================
+        PLAN ID
+        ==================================== -->
+
+        <input
+        type="hidden"
+        name="plan_id"
+        value="{{ plan.id }}"
+        >
+
+
+        <!-- ===================================
+        SLOT TIME
+        ==================================== -->
+
+        <textarea
+name="slot_times"
+placeholder="6:00 AM
+6:30 AM
+7:00 AM"
+style="
+width:100%;
+height:120px;
+padding:16px;
+border-radius:18px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
+color:white;
+resize:none;
+"
+></textarea>
+
+
+        <!-- ===================================
+        SHIFT
+        ==================================== -->
+
+        <select
+    name="shift"
+    required>
+
+            <option value="Morning">
+
+                Morning
+
+            </option>
+
+            <option value="Afternoon">
+
+                Afternoon
+
+            </option>
+
+            <option value="Evening">
+
+                Evening
+
+            </option>
+
+        </select>
+
+
+        <!-- ===================================
+        SLOT TYPE
+        ==================================== -->
+
+        <select
+        name="slot_type"
+        required>
+
+            <option value="Regular">
+
+                Regular
+
+            </option>
+
+            <option value="Express">
+
+                Express
+
+            </option>
+
+            <option value="Priority">
+
+                Priority
+
+            </option>
+
+        </select>
+
+
+        <!-- ===================================
+        MAX BOOKINGS
+        ==================================== -->
+
+        <input
+        type="number"
+        name="max_bookings"
+        placeholder="Max Bookings"
+        required
+        >
+
+
+        <!-- ===================================
+        SLOT COLOR
+        ==================================== -->
+
+        <input
+        type="color"
+        name="slot_color"
+        value="#39cfff"
+        >
+
+
+        <!-- ===================================
+        PRIORITY SLOT
+        ==================================== -->
+
+        <label class="feature-checkbox">
+
+            <input
+            type="checkbox"
+            name="is_priority"
+            >
+
+            Priority Slot
+
+        </label>
+
+
+        <!-- ===================================
+        RECOMMENDED SLOT
+        ==================================== -->
+
+        <label class="feature-checkbox">
+
+            <input
+            type="checkbox"
+            name="is_recommended"
+            >
+
+            Recommended Slot
+
+        </label>
+
+
+        <!-- ===================================
+        SUBMIT
+        ==================================== -->
+
+        <button
+        type="submit"
+        class="action-btn">
+
+            + Create Slot
+
+        </button>
+
+    </form>
+
+</div>
+
+
+
+<!-- ===================================
+SLOT LIST
+=================================== -->
+
+                            <div
+                            style="
+                            margin-top:40px;
+                            ">
+
+                                <div class="admin-block-label">
+
+                                    AVAILABLE TIME SLOTS
+
+                                </div>
+
+                                <div class="slot-grid-admin">
+
+                                    {% for slot in slots %}
+
+                                    {% if slot.plan_id == plan.id %}
+
+                                    <div class="slot-admin-card">
+
+                                        <div class="slot-admin-top">
+
+                                            <div>
+
+                                                <h3>
+
+                                                    {{ slot.slot_time }}
+
+                                                </h3>
+
+                                                <p>
+
+                                                    {{ slot.shift }}
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="slot-admin-badges">
+
+                                            <span class="slot-open-badge">
+
+                                                {{ slot.status }}
+
+                                            </span>
+
+                                            {% if slot.is_active %}
+
+                                            <span class="recommended-admin-badge">
+
+                                                ACTIVE
+
+                                            </span>
+
+                                            {% endif %}
+
+                                        </div>
+
+
+
+                                        <div class="slot-seat-box-admin">
+
+                                            <div class="seat-top-admin">
+
+                                                <span>
+
+                                                    Seats Filled
+
+                                                </span>
+
+                                                <strong>
+
+                                                    {{ slot.current_bookings }}/{{ slot.max_bookings }}
+
+                                                </strong>
+
+                                            </div>
+
+                                            <div class="seat-progress-admin">
+
+                                                <div
+                                                class="seat-progress-fill-admin"
+                                                style="
+                                                width:
+                                            {{ (
+                                                slot.current_bookings /
+                                                slot.max_bookings * 100
+                                                ) if slot.max_bookings else 0 }}%;
+                                            ">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="slot-admin-actions">
+
+                                            <a href="
+                                            {{ url_for(
+                                                'admin.toggle_slot',
+                                                slot_id=slot.id
+                                            ) }}
+                                            ">
+
+                                                <button
+                                                type="button"
+                                                class="disable-slot-btn">
+
+                                                    {% if slot.is_active %}
+                                                    Disable
+                                                    {% else %}
+                                                    Enable
+                                                    {% endif %}
+
+                                                </button>
+
+                                            </a>
+
+                                            <a href="
+                                            {{ url_for(
+                                                'admin.delete_slot',
+                                                slot_id=slot.id
+                                            ) }}
+                                            ">
+
+                                                <button
+                                                type="button"
+                                                class="delete-slot-btn">
+
+                                                    Delete
+
+                                                </button>
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                    {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </section>
+        <section
+id="super-admin-section"
+class="admin-section">
+
+    <h2>
+
+        Super Admin Panel
+
+    </h2>
+
+    <p>
+
+        User Management
+
+    </p>
+
+</section>
+
+    </main>
+
+</div>
+
+
+<script
+src="{{ url_for(
+    'static',
+    filename='js/admin.js'
+) }}"
+></script>
+
+<!-- Super Admin Unlock Modal -->
+<div id="superAdminModal" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:2001;">
+
+    <div style="background:#0b2333;padding:24px;border-radius:12px;width:360px;margin:80px auto;color:#fff;">
+
+        <h3 style="margin-bottom:12px;">Enter Super Admin Credentials</h3>
+
+        <form method="POST" action="{{ url_for('admin.unlock_super') }}">
+
+            <input type="text" name="username" placeholder="Super admin email or name" style="width:100%;padding:8px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:white;" required>
+
+            <input type="password" name="password" placeholder="Password" style="width:100%;padding:8px;margin-bottom:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:white;" required>
+
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
+
+                <button type="button" id="cancelSuperUnlock" style="padding:8px 12px;border-radius:8px;background:#223;">Cancel</button>
+
+                <button type="submit" style="padding:8px 12px;border-radius:8px;background:#39cfff;color:#02101d;font-weight:700;">Unlock</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('openSuperAdminBtn');
+    var modal = document.getElementById('superAdminModal');
+    var cancel = document.getElementById('cancelSuperUnlock');
+    if(btn){
+        btn.addEventListener('click', function(){ modal.style.display = 'flex'; });
+    }
+    if(cancel){
+        cancel.addEventListener('click', function(){ modal.style.display = 'none'; });
+    }
+});
+</script>
+
+{% endblock %}

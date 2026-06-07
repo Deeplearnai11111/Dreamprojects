@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    <h2>Manage Admins</h2>
+
+    <p>Admins and Super Admins</p>
+
+    <div style="margin-top:20px;">
+
+        <table style="width:100%;border-collapse:collapse;color:white;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">ID</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Name</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Email</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Role</th>
+                    <th style="text-align:right;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in admins %}
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ a.id }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ a.full_name }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ a.email or '-' }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ a.role }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:right;">
+
+                        <a href="{{ url_for('admin.super_admin_edit_admin', user_id=a.id) }}" class="action-btn">Edit</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

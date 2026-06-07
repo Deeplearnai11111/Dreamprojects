@@ -1,0 +1,35 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    <h2>User Detail - {{ user.full_name }}</h2>
+
+    <div style="margin-top:18px;color:white;">
+
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Name:</strong> {{ user.full_name }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Email:</strong> {{ user.email or '-' }}</p>
+        <p><strong>Society:</strong> {{ user.society or '-' }}</p>
+        <p><strong>Block:</strong> {{ user.block or '-' }}</p>
+        <p><strong>Flat:</strong> {{ user.flat_number or '-' }}</p>
+        <p><strong>Role:</strong> {{ user.role }}</p>
+        <p><strong>Active Plan:</strong> {{ user.active_plan }}</p>
+        <p><strong>Account Status:</strong> {{ user.account_status }}</p>
+
+        <div style="margin-top:18px;">
+            <a href="{{ url_for('admin.super_admin_panel') }}" class="action-btn" style="margin-right:8px;">Back</a>
+
+            <form method="POST" action="{{ url_for('admin.super_admin_delete_user', user_id=user.id) }}" style="display:inline;">
+                <button type="submit" class="delete-slot-btn">Delete User</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

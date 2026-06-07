@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    <h2>Super Admin - Users</h2>
+
+    <p>All users in the system</p>
+
+    <div style="margin-top:12px;display:flex;gap:8px;">
+        <a href="{{ url_for('admin.super_admin_manage_admins') }}" class="action-btn">Manage Admins</a>
+        <a href="{{ url_for('admin.admin_user_bookings') }}" class="action-btn">User Search</a>
+        <a href="{{ url_for('admin.super_admin_logs') }}" class="action-btn">Logs</a>
+    </div>
+
+    <div style="margin-top:20px;">
+
+        <table style="width:100%;border-collapse:collapse;color:white;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">ID</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Name</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Phone</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Email</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Role</th>
+                    <th style="text-align:right;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.id }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.full_name }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.phone }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.email or '-' }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.role }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:right;">
+
+                        <a href="{{ url_for('admin.super_admin_user_detail', user_id=u.id) }}" class="action-btn" style="padding:8px 12px;margin-right:8px;">View</a>
+
+                        <form method="POST" action="{{ url_for('admin.super_admin_delete_user', user_id=u.id) }}" style="display:inline;">
+                            <button class="delete-slot-btn" type="submit">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

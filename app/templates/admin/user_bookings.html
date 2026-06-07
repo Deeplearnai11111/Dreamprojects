@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    <h2>Search Users / Bookings</h2>
+
+    <form method="get" action="{{ url_for('admin.admin_user_bookings') }}" style="margin-top:12px;">
+        <input type="text" name="q" placeholder="Search by name or email" value="{{ query or '' }}" style="padding:8px;width:320px;">
+        <button type="submit" class="action-btn">Search</button>
+        <a href="{{ url_for('admin.admin_user_bookings') }}" class="action-btn">Clear</a>
+    </form>
+
+    <div style="margin-top:18px;">
+
+        <table style="width:100%;color:white;border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">ID</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Name</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Email</th>
+                    <th style="text-align:right;padding:8px;border-bottom:1px solid rgba(255,255,255,0.06);">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.id }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.full_name }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">{{ u.email }}</td>
+                    <td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:right;">
+                        <a href="{{ url_for('admin.admin_user_bookings_detail', user_id=u.id) }}" class="action-btn">View Bookings</a>
+                        {% if current_user.role == 'super_admin' or session.get('super_admin_unlocked') %}
+                        <a href="{{ url_for('admin.super_admin_user_detail', user_id=u.id) }}" class="action-btn">View Details</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

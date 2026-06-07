@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/payment.css') }}">
+
+<div class="payments-list" style="max-width:1000px;margin:36px auto;padding:20px;">
+    <h1>Payments</h1>
+    <p class="muted">Your pending and past payments</p>
+
+    {% if bookings %}
+    <div style="margin-top:18px;display:flex;flex-direction:column;gap:12px;">
+        {% for booking in bookings %}
+        <div style="background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <strong>{{ booking.plan_name or 'Service' }}</strong>
+                <div class="muted">Slot: {{ booking.slot_time or booking.service_time or '-' }} • Status: {{ booking.payment_status }}</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <div style="font-weight:800;color:#39cfff;margin-right:12px">Rs.{{ booking.plan_price or '0' }}</div>
+                <a href="{{ url_for('payment.payment_page') }}?booking_id={{ booking.id }}" class="action-btn">Pay / View</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="margin-top:18px;">No bookings found.</div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

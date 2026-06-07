@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+<div class="admin-main-content">
+
+    {% include '_back_button.html' %}
+
+    <h2>Booking #{{ booking.id }}</h2>
+
+    <div style="margin-top:12px;color:white;">
+
+        <p><strong>User ID:</strong> {{ booking.user_id }}</p>
+        <p><strong>Plan:</strong> {{ booking.plan_name }} - {{ booking.plan_price }}</p>
+        <p><strong>Service Time:</strong> {{ booking.service_time }}</p>
+        <p><strong>Stage:</strong> {{ booking.service_stage }}</p>
+        <p><strong>Progress:</strong> {{ booking.progress_percentage }}%</p>
+        <p><strong>Note:</strong> {{ booking.service_note or '-' }}</p>
+
+        <div style="margin-top:18px;">
+
+            <form method="POST" action="{{ url_for('admin.admin_booking_update_stage', booking_id=booking.id) }}">
+
+                <label>Note</label>
+                <textarea name="note" style="width:100%;height:80px;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:white;margin-bottom:12px;">{{ booking.service_note or '' }}</textarea>
+
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <button name="stage" value="Arrived" class="action-btn" type="submit">Arrived</button>
+                    <button name="stage" value="Cleaning" class="action-btn" type="submit">Cleaning</button>
+                    <button name="stage" value="Done" class="action-btn" type="submit">Done</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <h3 style="margin-top:20px;">Updates</h3>
+
+        <ul>
+            {% for u in updates %}
+                <li style="margin-bottom:8px;color:#cde;">{{ u.update_title }} - {{ u.update_description }} ({{ u.progress_percentage }}%) by {{ u.updated_by }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

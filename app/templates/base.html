@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+            
+            <!DOCTYPE html>
+
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>CLEANZO</title>
+
+                <!-- FAVICON -->
+                <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+                <!-- GLOBAL CSS -->
+                <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
+                <!-- GOOGLE FONT -->
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+            </head>
+
+            <body>
+
+            <!-- NAVBAR: Simplified for landing header -->
+            {% if request.path not in ['/login', '/register'] %}
+            <nav class="navbar">
+                <div class="nav-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                    <a href="/" class="nav-logo">CLEAN<span>ZO</span></a>
+                </div>
+
+                <div class="nav-right">
+                    {% if current_user.is_authenticated %}
+                        <div class="user-menu">
+                            <button class="user-menu-btn" id="userMenuBtn">
+                                <span class="user-avatar">{{ current_user.full_name[0].upper() }}</span>
+                                <span class="user-name">{{ current_user.full_name }}</span>
+                                <span class="menu-arrow">▼</span>
+                            </button>
+                            <div class="user-dropdown" id="userDropdown">
+                                <a href="/profile" class="dropdown-item">👤 Profile</a>
+                                <a href="/logout" class="dropdown-item logout-btn">🚪 Logout</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </nav>
+            {% endif %}
+
+            <!-- FLASH -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-container">
+                        {% for message in messages %}
+                            {% if message != 'Please login first' and message != 'Please log in to access this page.' %}
+                                <div class="flash-message">{{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- PAGE -->
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+
+            <!-- JS -->
+            <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+            <script>
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const navLinks = document.getElementById("navLinks");
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener("click", () => { navLinks.classList.toggle("show-mobile-nav"); });
+            }
+            </script>
+
+            </body>
+
+            </html>

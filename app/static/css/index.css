@@ -1,0 +1,950 @@
+/* ===================================
+PREMIUM HERO SECTION
+=================================== */
+
+.hero{
+
+    min-height:100vh;
+
+    padding:120px 70px 80px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    radial-gradient(
+        circle at top right,
+        rgba(57,207,255,0.12),
+        transparent 30%
+    ),
+    linear-gradient(
+        180deg,
+        #020b14,
+        #04111d
+    );
+}
+
+
+
+/* ===================================
+GRID BACKGROUND
+=================================== */
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px
+    );
+
+    background-size:40px 40px;
+
+    z-index:0;
+}
+
+
+
+/* ===================================
+MAIN CONTAINER
+=================================== */
+
+.hero-container{
+
+    width:100%;
+
+    max-width:1800px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:1fr 1.15fr;
+
+    align-items:center;
+
+    gap:80px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+
+/* ===================================
+LEFT SIDE
+=================================== */
+
+.hero-left{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+
+
+/* ===================================
+TOP ROW
+=================================== */
+
+.hero-top-row{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:42px;
+}
+
+
+
+/* ===================================
+BRAND
+=================================== */
+
+.hero-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+
+.brand-icon{
+
+    width:68px;
+
+    height:68px;
+
+    border-radius:22px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #39cfff,
+        #147eff
+    );
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    box-shadow:
+    0px 0px 50px rgba(
+        57,
+        207,
+        255,
+        0.35
+    );
+}
+
+
+.brand-text h2{
+
+    font-size:34px;
+
+    color:white;
+
+    margin-bottom:4px;
+
+    letter-spacing:1px;
+
+    font-weight:800;
+}
+
+
+.brand-text p{
+
+    font-size:12px;
+
+    letter-spacing:6px;
+
+    color:#8398ae;
+}
+
+
+
+/* ===================================
+BETA BADGE
+=================================== */
+
+.beta-badge{
+
+    padding:12px 24px;
+
+    border-radius:60px;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    color:#d8e5f5;
+
+    font-size:14px;
+
+    backdrop-filter:blur(12px);
+}
+
+
+
+/* ===================================
+MINI TAG
+=================================== */
+
+.mini-tag{
+
+    color:#46bfff;
+
+    font-size:16px;
+
+    letter-spacing:6px;
+
+    margin-bottom:26px;
+
+    font-weight:700;
+}
+
+
+
+/* ===================================
+TITLE
+=================================== */
+
+.hero-title{
+
+    font-size:96px;
+
+    line-height:0.95;
+
+    font-weight:900;
+
+    color:white;
+
+    margin-bottom:34px;
+
+    letter-spacing:-4px;
+}
+
+
+.hero-title span{
+
+    background:linear-gradient(
+        90deg,
+        #39cfff,
+        #8adfff
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+
+
+/* ===================================
+DESCRIPTION
+=================================== */
+
+.hero-description{
+
+    color:#98aec4;
+
+    font-size:21px;
+
+    line-height:1.9;
+
+    max-width:720px;
+
+    margin-bottom:48px;
+}
+
+
+
+/* ===================================
+FEATURE CARDS
+=================================== */
+
+.hero-features{
+
+    display:flex;
+
+    gap:22px;
+
+    margin-bottom:48px;
+
+    flex-wrap:wrap;
+}
+
+
+.mini-feature-card{
+
+    flex:1;
+
+    min-width:210px;
+
+    padding:28px;
+
+    border-radius:30px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(57,207,255,0.10),
+        rgba(255,255,255,0.03)
+    );
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(16px);
+
+    transition:0.35s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.mini-feature-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+
+    height:160px;
+
+    background:rgba(
+        57,
+        207,
+        255,
+        0.08
+    );
+
+    border-radius:50%;
+
+    top:-80px;
+
+    right:-80px;
+}
+
+
+.mini-feature-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(
+        57,
+        207,
+        255,
+        0.4
+    );
+
+    box-shadow:
+    0px 0px 40px rgba(
+        57,
+        207,
+        255,
+        0.12
+    );
+}
+
+
+.feature-icon-box{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(
+        57,
+        207,
+        255,
+        0.12
+    );
+
+    color:#39cfff;
+
+    font-size:28px;
+
+    margin-bottom:20px;
+
+    backdrop-filter:blur(12px);
+}
+
+
+.mini-feature-card h3{
+
+    color:white;
+
+    font-size:28px;
+
+    margin-bottom:14px;
+}
+
+
+.mini-feature-card p{
+
+    color:#8ea4bb;
+
+    font-size:16px;
+
+    line-height:1.8;
+}
+
+
+
+/* ===================================
+STATS
+=================================== */
+
+.hero-stats{
+
+    display:flex;
+
+    gap:22px;
+
+    flex-wrap:wrap;
+}
+
+
+.hero-stat-card{
+
+    min-width:190px;
+
+    padding:30px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    backdrop-filter:blur(14px);
+
+    transition:0.35s;
+}
+
+
+.hero-stat-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(
+        57,
+        207,
+        255,
+        0.3
+    );
+}
+
+
+.hero-stat-card h2{
+
+    color:#39cfff;
+
+    font-size:44px;
+
+    margin-bottom:10px;
+}
+
+
+.hero-stat-card p{
+
+    color:#8ea4bb;
+
+    font-size:16px;
+}
+
+
+
+/* ===================================
+RIGHT SIDE
+=================================== */
+
+.hero-right{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+
+
+/* ===================================
+MODEL CARD
+=================================== */
+
+.model-card{
+    width:100%;
+    max-width:920px;
+    border-radius:42px;
+    position:relative;
+    /* allow subtle scene bleed to blend into page */
+    overflow:visible;
+    /* glassmorphism: subtle translucent surface */
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 0 80px rgba(59,183,255,0.08);
+}
+
+
+
+/* ===================================
+MODEL GLOW
+=================================== */
+
+.hero-glow{
+
+    position:absolute;
+
+    inset:0;
+
+    /* very subtle blue-ish vignette to emphasize car, keep behind content */
+    background: radial-gradient(circle at center, rgba(57,207,255,0.06), transparent 55%);
+    z-index:0;
+}
+
+
+
+/* ===================================
+3D MODEL BOX
+=================================== */
+
+.hero-image-box{
+
+    width:100%;
+
+    height:820px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* gradient masks to softly fade the 3D scene into the page edges */
+.hero-image-box::before,
+.hero-image-box::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8%;
+    pointer-events: none;
+    z-index: 6;
+}
+.hero-image-box::before{
+    left: 0;
+    background: linear-gradient(to right, rgba(8,19,29,1), rgba(8,19,29,0));
+}
+.hero-image-box::after{
+    right: 0;
+    background: linear-gradient(to left, rgba(8,19,29,1), rgba(8,19,29,0));
+}
+
+/* bottom fade - use an overlay element to mask the bottom edge */
+.hero-image-box .fade-bottom{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22%;
+    background: linear-gradient(to top, rgba(8,19,29,1), rgba(8,19,29,0));
+    pointer-events: none;
+    z-index: 6;
+}
+
+
+
+/* ===================================
+3D VIEWER
+=================================== */
+
+#car3dViewer{
+
+    width:100%;
+
+    height:100%;
+}
+
+
+#car3dViewer canvas{
+
+    width:100% !important;
+
+    height:100% !important;
+}
+
+/* ensure the canvas itself remains visually integrated */
+#car3dViewer{
+    background: transparent;
+}
+
+
+
+/* ===================================
+CTA
+=================================== */
+
+.hero-cta{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:22px;
+
+    padding:34px;
+
+    border-top:1px solid rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+.main-cta-btn{
+
+    min-width:300px;
+
+    height:78px;
+
+    border:none;
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #39cfff,
+        #147eff
+    );
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.35s;
+
+    box-shadow:
+    0px 0px 40px rgba(
+        57,
+        207,
+        255,
+        0.35
+    );
+}
+
+
+.main-cta-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0px 0px 60px rgba(
+        57,
+        207,
+        255,
+        0.45
+    );
+}
+
+
+.secondary-cta-btn{
+
+    min-width:300px;
+
+    height:74px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    background:rgba(255,255,255,0.03);
+
+    backdrop-filter:blur(12px);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+.secondary-cta-btn:hover{
+
+    border-color:#39cfff;
+
+    background:rgba(
+        255,
+        255,
+        255,
+        0.06
+    );
+}
+
+/* GOOGLE HERO CTA (reused from login styles) */
+.google-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px;
+    border-radius:12px;
+    background: linear-gradient(90deg,#2ea0ff,#1985ff);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 6px 18px rgba(8,30,44,0.25);
+    border: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.google-hero-btn{ padding:14px 20px; font-size:17px; }
+.google-btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(8,30,44,0.35); }
+.google-btn .google-icon{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background:#ffffff; border-radius:8px; padding:6px; box-shadow: 0 4px 10px rgba(2,16,26,0.18); }
+.google-btn .google-icon svg{ display:block; width:100%; height:100%; }
+.google-btn .google-text{ display:inline-block; line-height:1; }
+
+@media(max-width:1200px){
+    .google-hero-btn{ width:100%; justify-content:center; }
+}
+
+
+
+/* ===================================
+TABLET
+=================================== */
+
+@media(max-width:1200px){
+
+    .hero-container{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+    }
+
+    .hero-left{
+
+        order:2;
+
+        text-align:center;
+    }
+
+    .hero-right{
+
+        order:1;
+    }
+
+    .hero-top-row{
+
+        justify-content:center;
+
+        gap:20px;
+    }
+
+    .hero-description{
+
+        margin:auto;
+
+        margin-bottom:40px;
+    }
+
+    .hero-features{
+
+        justify-content:center;
+    }
+
+    .hero-stats{
+
+        justify-content:center;
+    }
+
+    .hero-image-box{
+
+        height:620px;
+    }
+
+}
+
+
+
+/* ===================================
+MOBILE
+=================================== */
+
+@media(max-width:768px){
+
+    .hero{
+
+        padding:100px 20px 70px;
+    }
+
+    .hero-title{
+
+        font-size:58px;
+
+        text-align:center;
+
+        letter-spacing:-2px;
+    }
+
+    .mini-tag{
+
+        text-align:center;
+    }
+
+    .hero-description{
+
+        text-align:center;
+
+        font-size:17px;
+    }
+
+    .hero-features{
+
+        flex-direction:column;
+    }
+
+    .mini-feature-card{
+
+        width:100%;
+    }
+
+    .hero-stats{
+
+        justify-content:center;
+    }
+
+    .hero-cta{
+
+        flex-direction:column;
+
+        padding:24px;
+    }
+
+    .main-cta-btn,
+    .secondary-cta-btn{
+
+        width:100%;
+
+        min-width:100%;
+    }
+
+    .hero-image-box{
+
+        height:420px;
+    }
+
+    .section-header h2{
+
+        font-size:42px;
+    }
+
+}
+
+
+/* ===================================
+CTA / STATS PANEL (full width below hero-left)
+=================================== */
+.hero-cta-panel{
+    margin-top:28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    padding:26px;
+    border-radius:20px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+    backdrop-filter:blur(12px);
+}
+
+.cta-stats{
+    display:flex;
+    gap:18px;
+}
+
+.cta-stat{
+    padding:18px 22px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.03);
+    text-align:center;
+}
+
+.cta-stat h3{ color:#39cfff; font-size:28px; margin:0 0 8px 0 }
+.cta-stat p{ color:#9fb0c6; margin:0 }
+
+.cta-actions{ display:flex; gap:14px; align-items:center }
+.google-small{ display:inline-block; padding:10px 12px; border-radius:10px; background:#ffffff; color:#0b2233; text-decoration:none; font-weight:600 }
+
+@media(max-width:1200px){
+    .hero-cta-panel{ flex-direction:column; align-items:center }
+    .cta-actions{ width:100%; justify-content:center; flex-wrap:wrap }
+}

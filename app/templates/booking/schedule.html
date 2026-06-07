@@ -1,0 +1,746 @@
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ===================================
+BOOKING CSS
+=================================== -->
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+    'static',
+    filename='css/booking.css'
+) }}"
+>
+
+<!-- ===================================
+SCHEDULE PAGE
+=================================== -->
+
+<div class="schedule-page">
+
+    <!-- ===================================
+    BACKGROUND GLOW
+    ==================================== -->
+
+    <div class="schedule-glow glow-one"></div>
+
+    <div class="schedule-glow glow-two"></div>
+
+    <!-- ===================================
+    MAIN FORM
+    ==================================== -->
+
+    <form
+    method="POST"
+    action="{{ url_for('booking.schedule') }}"
+    class="schedule-layout"
+    >
+
+        <!-- ===================================
+        LEFT SIDE
+        ==================================== -->
+
+        <div class="schedule-left">
+
+            <!-- ===================================
+            PAGE HEADER
+            ==================================== -->
+
+            <div class="schedule-header">
+
+                <h1>
+
+                    Schedule
+
+                </h1>
+
+                <p>
+
+                    Pick a frequency,
+                    slot and service tier.
+
+                </p>
+
+            </div>
+
+            <!-- ===================================
+            FREQUENCY
+            ==================================== -->
+
+            <div class="schedule-section">
+
+                <div class="section-label">
+
+                    FREQUENCY
+
+                </div>
+
+                <div class="frequency-grid">
+
+                    {% for frequency in frequencies %}
+
+                    <label
+                    class="
+                    frequency-card
+
+                    {% if loop.first %}
+                    active-frequency
+                    {% endif %}
+                    "
+                    data-frequency="{{ frequency.name }}"
+                    >
+
+                        <input
+                        type="radio"
+                        name="frequency_id"
+                        value="{{ frequency.id }}"
+
+                        {% if loop.first %}
+                        checked
+                        {% endif %}
+                        >
+
+                        <div class="frequency-content">
+
+                            <div>
+
+                                <h3>
+
+                                    {{ frequency.name }}
+
+                                </h3>
+
+                                <p>
+
+                                    {{ frequency.subtitle }}
+
+                                </p>
+
+                                <div class="frequency-meta">
+
+                                    <div class="frequency-badge">
+
+                                        {{ frequency.washes_per_month }}
+                                        Washes / Month
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <span class="check-icon">
+
+                                ✓
+
+                            </span>
+
+                        </div>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ===================================
+            SERVICE TIER
+            ==================================== -->
+
+            <div class="schedule-section">
+
+                <div class="section-label">
+
+                    SERVICE TIER
+
+                </div>
+
+                <div class="tier-grid">
+
+                    {% for plan in plans %}
+
+                    <label
+                    class="
+                    tier-card
+
+                    {% if plan.theme == 'premium' %}
+                    purple-tier
+                    {% else %}
+                    blue-tier
+                    {% endif %}
+
+                    {% if loop.first %}
+                    active-tier
+                    {% endif %}
+                    "
+                    data-plan="{{ plan.name }}"
+                    data-price="{{ plan.price }}"
+                    >
+
+                        <input
+                        type="radio"
+                        name="plan_id"
+                        value="{{ plan.id }}"
+
+                        {% if loop.first %}
+                        checked
+                        {% endif %}
+                        >
+
+                        <span class="tier-small">
+
+                            {{ plan.badge }}
+
+                        </span>
+
+                        <h2>
+
+                            {{ plan.name }}
+
+                        </h2>
+
+                        <p>
+
+                            {{ plan.subtitle }}
+
+                        </p>
+
+                        <h3>
+
+                            ₹{{ plan.price }}
+
+                            <span>
+
+                                / wash
+
+                            </span>
+
+                        </h3>
+
+                        <!-- FEATURES -->
+
+                        <div class="plan-features">
+
+                            {% if plan.exterior_wash %}
+
+                            <div class="plan-feature">
+
+                                Exterior Wash
+
+                            </div>
+
+                            {% endif %}
+
+                            {% if plan.interior_cleaning %}
+
+                            <div class="plan-feature">
+
+                                Interior Cleaning
+
+                            </div>
+
+                            {% endif %}
+
+                            {% if plan.tyre_rinse %}
+
+                            <div class="plan-feature">
+
+                                Tyre Rinse
+
+                            </div>
+
+                            {% endif %}
+
+                            {% if plan.tyre_dressing %}
+
+                            <div class="plan-feature">
+
+                                Tyre Dressing
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ===================================
+            SLOT PICKER
+            ==================================== -->
+
+            <div class="schedule-section">
+
+                <div class="section-label">
+
+                    PICK A SLOT
+
+                </div>
+
+                {% if slots %}
+
+                    <!-- MORNING -->
+
+                    {% set morning_slots = [] %}
+
+                    {% for slot in slots %}
+
+                        {% if slot.shift|lower == 'morning' %}
+
+                            {% set _ = morning_slots.append(slot) %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if morning_slots %}
+
+                    <div class="slot-group-tag morning-tag">
+
+                        ● Morning
+
+                    </div>
+
+                    <div class="slots-grid">
+
+                        {% for slot in morning_slots %}
+
+                        <label
+                        class="slot-card"
+                        data-slot="{{ slot.slot_time }}"
+                        data-shift="{{ slot.shift }}"
+                        >
+
+                           
+<input
+type="radio"
+name="slot_id"
+value="{{ slot.id }}"
+>
+
+
+
+                            <span>
+
+                                {{ slot.slot_time }}
+
+                                <small>
+
+                                    {{ slot.remaining_slots }}
+                                    seats left
+
+                                </small>
+
+                            </span>
+
+                        </label>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% endif %}
+
+                    <!-- AFTERNOON -->
+
+                    {% set afternoon_slots = [] %}
+
+                    {% for slot in slots %}
+
+                        {% if slot.shift|lower == 'afternoon' %}
+
+                            {% set _ = afternoon_slots.append(slot) %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if afternoon_slots %}
+
+                    <div class="slot-group-tag afternoon-tag">
+
+                        ● Afternoon
+
+                    </div>
+
+                    <div class="slots-grid">
+
+                        {% for slot in afternoon_slots %}
+
+                        <label
+                        class="slot-card"
+                        data-slot="{{ slot.slot_time }}"
+                        data-shift="{{ slot.shift }}"
+                        >
+
+                            
+<input
+type="radio"
+name="slot_id"
+value="{{ slot.id }}"
+>
+
+
+
+                            <span>
+
+                                {{ slot.slot_time }}
+
+                                <small>
+
+                                    {{ slot.remaining_slots }}
+                                    seats left
+
+                                </small>
+
+                            </span>
+
+                        </label>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% endif %}
+
+                    <!-- EVENING -->
+
+                    {% set evening_slots = [] %}
+
+                    {% for slot in slots %}
+
+                        {% if slot.shift|lower == 'evening' %}
+
+                            {% set _ = evening_slots.append(slot) %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if evening_slots %}
+
+                    <div class="slot-group-tag evening-tag">
+
+                        ● Evening
+
+                    </div>
+
+                    <div class="slots-grid">
+
+                        {% for slot in evening_slots %}
+
+                        <label
+                        class="slot-card"
+                        data-slot="{{ slot.slot_time }}"
+                        data-shift="{{ slot.shift }}"
+                        >
+
+                            
+<input
+type="radio"
+name="slot_id"
+value="{{ slot.id }}"
+>
+
+
+
+                            <span>
+
+                                {{ slot.slot_time }}
+
+                                <small>
+
+                                    {{ slot.remaining_slots }}
+                                    seats left
+
+                                </small>
+
+                            </span>
+
+                        </label>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="no-slot-card">
+
+                        No Slots Available
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- ===================================
+        RIGHT SIDE
+        ==================================== -->
+
+        <div class="schedule-right">
+
+            <div class="summary-card">
+
+                <div class="summary-top">
+
+                    <div>
+
+                        <p class="summary-small">
+
+                            ACTIVE BOOKING
+
+                        </p>
+
+                        <h2 id="summaryPlan">
+
+                            Select Plan
+
+                        </h2>
+
+                    </div>
+
+                    <div
+                    class="summary-price"
+                    id="summaryPrice"
+                    >
+
+                        ₹0
+
+                    </div>
+
+                </div>
+
+                <div class="summary-list">
+
+                    <div class="summary-item">
+
+                        <span>
+
+                            Frequency
+
+                        </span>
+
+                        <strong id="summaryFrequency">
+
+                            Select Frequency
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>
+
+                            Slot
+
+                        </span>
+
+                        <strong id="summarySlot">
+
+                            Select Slot
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>
+
+                            Vehicle
+
+                        </span>
+
+                        <strong>
+
+                            {% if current_user.cars %}
+
+                                {{ current_user.cars[0].car_model }}
+
+                            {% else %}
+
+                                Honda City
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-item">
+
+                        <span>
+
+                            Status
+
+                        </span>
+
+                        <strong class="active-status">
+
+                            Ready
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="booking-note">
+
+                    💡 Morning schedules are recommended
+                    for best cleaning quality.
+
+                </div>
+
+                <button
+                id="confirmBookingBtn"
+                type="submit"
+                class="confirm-btn"
+                >
+
+                    Confirm Schedule →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- ===================================
+BOTTOM NAVBAR
+=================================== -->
+
+<div class="bottom-navbar">
+
+    <a
+    href="/dashboard"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            🏠
+
+        </span>
+
+        <p>
+
+            HOME
+
+        </p>
+
+    </a>
+
+    <a
+    href="/schedule"
+    class="bottom-nav-item active-nav"
+    >
+
+        <span>
+
+            📅
+
+        </span>
+
+        <p>
+
+            SCHEDULE
+
+        </p>
+
+    </a>
+
+    <a
+    href="/tracking"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            📍
+
+        </span>
+
+        <p>
+
+            TRACK
+
+        </p>
+
+    </a>
+
+    <a
+    href="/tips"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            ✨
+
+        </span>
+
+        <p>
+
+            TIPS
+
+        </p>
+
+    </a>
+
+    <a
+    href="/profile"
+    class="bottom-nav-item"
+    >
+
+        <span>
+
+            👤
+
+        </span>
+
+        <p>
+
+            PROFILE
+
+        </p>
+
+    </a>
+
+</div>
+
+<!-- ===================================
+BOOKING JS
+=================================== -->
+
+<script
+src="{{ url_for(
+    'static',
+    filename='js/schedule.js'
+) }}">
+</script>
+
+{% endblock %}
+```

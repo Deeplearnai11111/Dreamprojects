@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='css/payment.css') }}"
+>
+
+<div class="payment-page">
+
+
+    <!-- ===================================
+    TOP STATUS BAR
+    ==================================== -->
+
+    <div class="payment-status-bar">
+
+        <div class="status-dot"></div>
+
+        <p>
+
+            Payment gateway ready.
+            No real charge will happen.
+
+        </p>
+
+    </div>
+
+
+
+
+
+    <!-- ===================================
+    PAGE HEADER
+    ==================================== -->
+
+    <div class="payment-header">
+
+        <h1>
+
+            Payment
+
+        </h1>
+
+        <p>
+
+            Secure dummy gateway —
+            no real charge.
+
+        </p>
+
+    </div>
+
+
+
+
+
+    <!-- ===================================
+    MAIN PAYMENT CARD
+    ==================================== -->
+
+    <div class="payment-main-card">
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="payment-section">
+
+            <div class="section-top">
+
+                <span class="section-label">
+
+                    ORDER SUMMARY
+
+                </span>
+
+                <div class="order-id">
+
+                    #F7D1D3
+
+                </div>
+
+            </div>
+
+
+
+            <div class="summary-list">
+
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Frequency
+
+                    </span>
+
+                    <strong>
+
+                        {{ booking.frequency }}
+
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Service
+
+                    </span>
+
+                    <strong>
+
+                        {{ booking.plan_name }}
+
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Slot
+
+                    </span>
+
+                    <strong>
+
+                        {{ booking.service_time }}
+
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Type
+
+                    </span>
+
+                    <strong>
+
+                        Monthly
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="total-payable">
+
+                <span>
+
+                    Total payable
+
+                </span>
+
+                <h2>
+
+                    Rs.{{ booking.plan_price }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- FEATURES -->
+
+        <div class="payment-section">
+
+            <span class="section-label">
+
+                WHAT'S INCLUDED
+
+            </span>
+
+
+
+            <div class="features-list">
+
+
+                <div class="feature-item">
+
+                    <div class="feature-check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        Foam exterior wash
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="feature-item">
+
+                    <div class="feature-check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        Tyre rinse
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="feature-item">
+
+                    <div class="feature-check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        Inside dusting
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="feature-item">
+
+                    <div class="feature-check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        On-time arrival promise
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="feature-item">
+
+                    <div class="feature-check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        Trained Clenzo technician
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+ <!-- ===================================
+SCAN & PAY
+=================================== -->
+
+<div class="payment-section">
+
+    <span class="section-label">
+
+        SCAN & PAY
+
+    </span>
+
+    <div class="qr-payment-box">
+
+        <img
+        src="{{ url_for(
+            'static',
+            filename='images/payment-qr.png'
+        ) }}"
+        alt="Payment QR"
+        class="payment-qr"
+        >
+
+        <p class="qr-text">
+
+            Scan QR using any UPI App
+            and complete payment.
+
+        </p>
+
+        <div class="upi-id-box">
+
+            cleanzo@ybl
+
+        </div>
+
+    </div>
+
+</div>    
+
+<!-- ===================================
+PAYMENT FORM
+=================================== -->
+
+<form
+method="POST"
+action="/payment?booking_id={{ booking.id }}"
+enctype="multipart/form-data"
+>
+
+    <input
+    type="file"
+    name="payment_screenshot"
+    accept="image/*"
+    >
+
+    <input
+    type="text"
+    name="transaction_id"
+    class="transaction-input"
+    placeholder="Enter Transaction / UTR ID"
+    required
+    >
+
+    <button
+    type="submit"
+    class="pay-btn">
+
+        Confirm Payment
+
+    </button>
+
+</form>
+
+
+
+
+
+
+<script
+src="{{ url_for('static', filename='js/payment.js') }}"
+></script>
+
+<!-- Payment success modal -->
+<div id="payment-success-modal" class="payment-success-modal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:1200">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6)"></div>
+    <div style="position:relative;z-index:2;background:linear-gradient(180deg,#071018,#0b1820);padding:28px;border-radius:14px;max-width:720px;margin:0 auto;color:#fff;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+        <div style="font-size:64px;margin-bottom:8px;color:#53d1a1">✓</div>
+        <h2 style="margin:0 0 6px 0;font-size:32px">Payment successful</h2>
+        <div style="color:rgba(255,255,255,0.7);margin-bottom:18px">Txn <span id="payment-txn"></span><br>Your booking is confirmed. The team has been notified.</div>
+        <div style="display:flex;gap:12px;justify-content:center">
+            <a href="{{ url_for('tracking.tracking_page') }}" class="muted-btn" style="padding:12px 20px;border-radius:10px;background:rgba(255,255,255,0.04);color:#cfefff;text-decoration:none">Track washes</a>
+            <a href="/dashboard" id="dashboard-btn" class="save-btn" style="padding:12px 20px;border-radius:10px;text-decoration:none">Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // show modal if server indicated success
+    window.addEventListener('load', function(){
+        const success = {{ 'true' if success else 'false' }};
+        const txn = "{{ transaction_id or '' }}";
+        if(success){
+            const modal = document.getElementById('payment-success-modal');
+            const txnSpan = document.getElementById('payment-txn');
+            if(txnSpan) txnSpan.innerText = txn;
+            if(modal) modal.style.display = 'flex';
+        }
+    });
+</script>
+
+{% endblock %}

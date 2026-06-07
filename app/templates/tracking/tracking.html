@@ -1,0 +1,497 @@
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/tracking.css') }}"
+    >
+
+    <div class="tracking-page">
+
+        <!-- ===================================
+        HEADER
+        ==================================== -->
+
+        <div class="tracking-header">
+
+            <h1>
+
+                Live Service
+
+                <span>Tracking</span>
+
+            </h1>
+
+            <p>
+
+                Track your CLEANZO service
+                progress in real time.
+
+            </p>
+
+        </div>
+
+
+        <!-- ===================================
+        BOOKING CARD
+        ==================================== -->
+
+        <div class="booking-summary-card">
+
+            <div>
+
+                <p class="small-text">
+
+                    Current Plan
+
+                </p>
+
+                <h2>
+
+                    {{ booking.plan_name }}
+
+                </h2>
+
+                {% if booking.service_category %}
+
+                <div class="service-category-badge">
+
+                    {{ booking.service_category }}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <div>
+
+                <div class="booking-price">
+
+                    ₹{{ booking.plan_price }}
+
+                </div>
+
+                <div class="booking-id-box">
+
+                    Booking ID :
+                    #{{ booking.id }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================
+        USER DETAILS
+        ==================================== -->
+
+        <div class="tracking-grid">
+
+            <!-- CUSTOMER -->
+
+            <div class="tracking-box">
+
+                <h3>
+
+                    Customer Details
+
+                </h3>
+
+                <p>
+
+                    👤 {{ user.full_name }}
+
+                </p>
+
+                <p>
+
+                    📞 {{ user.phone }}
+
+                </p>
+
+                <p>
+
+                    🏢 {{ user.society }}
+
+                </p>
+
+                {% if booking.vehicle_name %}
+
+                <p>
+
+                    🚘 {{ booking.vehicle_name }}
+
+                </p>
+
+                {% endif %}
+
+                {% if booking.vehicle_number %}
+
+                <p>
+
+                    🔢 {{ booking.vehicle_number }}
+
+                </p>
+
+                {% endif %}
+
+                {% if booking.vehicle_color %}
+
+                <p>
+
+                    🎨 {{ booking.vehicle_color }}
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- SERVICE -->
+
+            <div class="tracking-box">
+
+                <h3>
+
+                    Service Schedule
+
+                </h3>
+
+                <p>
+
+                    ⏰ {{ booking.service_time }}
+
+                </p>
+
+                <p>
+
+                    📅 {{ booking.service_date }}
+
+                </p>
+
+                <p>
+
+                    🔁 {{ booking.frequency }}
+
+                </p>
+
+                {% if booking.service_type %}
+
+                <p>
+
+                    🧼 {{ booking.service_type }}
+
+                </p>
+
+                {% endif %}
+
+                {% if booking.estimated_delivery %}
+
+                <p>
+
+                    🚚 {{ booking.estimated_delivery }}
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================
+    LIVE STATUS SECTION
+    =================================== -->
+
+    <div class="status-section">
+
+    ```
+    <div class="section-title-row">
+
+        <h2>
+
+            Service Progress
+
+        </h2>
+
+        <div class="
+        live-status-badge
+
+        {% if booking.service_stage == 'Done' %}
+            completed-badge
+        {% elif booking.service_stage in ['Arrived','Cleaning'] %}
+            progress-badge
+        {% else %}
+            pending-badge
+        {% endif %}
+        ">
+
+            {{ booking.service_stage }}
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================
+    PROGRESS BAR
+    ==================================== -->
+
+    <div class="tracking-progress-wrapper">
+
+        {% if booking.service_stage == 'Assigned' %}
+        {% set progress = 25 %}
+    {% elif booking.service_stage == 'Arrived' %}
+        {% set progress = 50 %}
+    {% elif booking.service_stage == 'Cleaning' %}
+        {% set progress = 75 %}
+    {% elif booking.service_stage == 'Done' %}
+        {% set progress = 100 %}
+    {% else %}
+        {% set progress = 0 %}
+    {% endif %}
+
+        </div>
+
+        <div class="progress-text">
+
+            {{ booking.service_stage }}
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================
+    TIMELINE
+    ==================================== -->
+
+    <div class="service-tracker">
+
+    <div class="tracker-line"></div>
+
+    <div class="tracker-line-active"
+    style="width:
+    {% if booking.service_stage == 'Assigned' %}
+        0%
+    {% elif booking.service_stage == 'Arrived' %}
+        33%
+    {% elif booking.service_stage == 'Cleaning' %}
+        66%
+    {% elif booking.service_stage == 'Done' %}
+        100%
+    {% else %}
+        0%
+    {% endif %}
+    ;">
+    </div>
+
+    <div class="tracker-step completed">
+        ✓
+        <span>Assigned</span>
+    </div>
+
+    <div class="tracker-step
+    {% if booking.service_stage in ['Arrived','Cleaning','Done'] %}
+        completed
+    {% endif %}
+    ">
+        ✓
+        <span>Arrived</span>
+    </div>
+
+    <div class="tracker-step
+    {% if booking.service_stage in ['Cleaning','Done'] %}
+        completed
+    {% endif %}
+    ">
+        ✓
+        <span>Cleaning</span>
+    </div>
+
+    <div class="tracker-step
+    {% if booking.service_stage == 'Done' %}
+        completed
+    {% endif %}
+    ">
+        ✓
+        <span>Done</span>
+    </div>
+
+</div>
+
+    <!-- ===================================
+    CURRENT STATUS CARD
+    =================================== -->
+
+    <div class="current-status-card">
+
+    ```
+    <div class="status-header-row">
+
+        <h3>
+
+            Current Live Status
+
+        </h3>
+
+        <div class="
+        status-indicator
+
+        {% if booking.service_stage == 'Done' %}
+            completed-indicator
+        {% endif %}
+        ">
+        </div>
+
+    </div>
+
+    <div class="live-status">
+
+        {{ booking.service_stage }}
+
+    </div>
+
+
+    {% if booking.admin_update %}
+
+    <div class="admin-live-message">
+
+        <div class="message-header">
+
+            <span>
+
+                🔔 Admin Update
+
+            </span>
+
+            <small>
+
+                {{ booking.updated_at.strftime('%d %b %Y %I:%M %p') }}
+
+            </small>
+
+        </div>
+
+        <p>
+
+            {{ booking.admin_update }}
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if booking.service_note %}
+
+    <div class="garage-note-box">
+
+        <div class="message-header">
+
+            <span>
+
+                🛠 Service Note
+
+            </span>
+
+        </div>
+
+        <p>
+
+            {{ booking.service_note }}
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if booking.garage_status %}
+
+    <div class="garage-status-box">
+
+        <h4>
+
+            Garage Status
+
+        </h4>
+
+        <div class="garage-status-badge">
+
+            {{ booking.garage_status }}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if booking.assigned_cleaner
+    or booking.assigned_mechanic %}
+
+    <div class="assigned-box">
+
+        <h4>
+
+            Assigned Staff
+
+        </h4>
+
+        {% if booking.assigned_cleaner %}
+        <p>👨‍🔧 {{ booking.assigned_cleaner }}</p>
+        {% endif %}
+
+        {% if booking.cleaner_phone %}
+        <p>📞 {{ booking.cleaner_phone }}</p>
+        {% endif %}
+
+        {% if booking.assigned_mechanic %}
+        <p>🧰 {{ booking.assigned_mechanic }}</p>
+        {% endif %}
+
+        {% if booking.mechanic_phone %}
+        <p>📞 {{ booking.mechanic_phone }}</p>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+    </div>
+
+    {% if booking.service_stage == 'Done' %}
+
+    <script>
+
+    window.onload = function(){
+
+        setTimeout(function(){
+
+            alert(
+                "Service Completed Successfully. Please rate CLEANZO."
+            );
+
+        },1000);
+
+    };
+
+    </script>
+
+    {% endif %}
+
+    <script
+    src="{{ url_for('static', filename='js/tracking.js') }}"
+    ></script>
+
+    {% endblock %}

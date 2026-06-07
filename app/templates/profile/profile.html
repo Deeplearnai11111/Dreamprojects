@@ -1,0 +1,1083 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/profile.css') }}">
+<!-- Cropper.js CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
+
+<div class="profile-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="profile-sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="profile-image-box">
+
+                <img src="{% if user.profile_image %}{{ url_for('static', filename='uploads/profile_pics/' + user.profile_image) }}{% else %}{{ url_for('static', filename='images/default-profile.png') }}{% endif %}" class="profile-image">
+
+                <div class="online-indicator"></div>
+
+                <!-- Visible button to open the image modal (improves discoverability) -->
+                <button id="open-image-modal-btn" class="change-photo-btn" title="Change profile photo">✎</button>
+
+            </div>
+
+            <h2>{{ user.full_name }}</h2>
+
+            <p>{{ user.active_plan }}</p>
+
+            <div class="member-badge">CLEANZO Member</div>
+
+        </div>
+
+        <div class="sidebar-menu">
+
+            <button class="sidebar-btn" data-popup-target="profile-edit">
+                <span>👤</span> Profile
+            </button>
+
+            <button class="sidebar-btn" data-popup-target="cars-list">
+                <span>🚗</span> My Cars
+            </button>
+
+            <button class="sidebar-btn" data-popup-target="services-list">
+                <span>🧼</span> Services
+            </button>
+
+            
+
+            <button class="sidebar-btn" data-popup-target="payments-history">
+                <span>💳</span> Payment History
+            </button>
+
+            <button class="sidebar-btn" data-popup-target="help-support">
+                <span>❓</span> Help & Support
+            </button>
+
+            <!-- Privacy & Terms moved into Help & Support panel -->
+
+        </div>
+
+    </aside>
+
+    <!-- RIGHT-SIDE PANEL (placed next to sidebar to occupy center area) -->
+    <aside id="right-panel" class="right-panel" aria-hidden="true">
+
+        <div class="right-panel-inner">
+
+            <div class="panel-section" data-panel="profile-edit">
+
+                <h3>Edit Profile</h3>
+
+                <form action="/update-profile" method="POST">
+
+                    <label>Full name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" required>
+
+                    <label>Phone</label>
+                    <input type="text" name="phone" value="{{ user.phone }}" required>
+
+                    <label>Society</label>
+                    <input type="text" name="society" value="{{ user.society or '' }}">
+
+                    <label>Block</label>
+                    <input type="text" name="block" value="{{ user.block or '' }}">
+
+                    <label>Flat Number</label>
+                    <input type="text" name="flat_number" value="{{ user.flat_number or '' }}">
+
+                    <button type="submit" class="save-btn">Save</button>
+
+                </form>
+
+            </div>
+
+            <!-- profile image edit removed — modal handles change/remove -->
+
+            <div class="panel-section" data-panel="cars-list">
+
+                <h3>Your Cars</h3>
+
+                {% if cars %}
+                    <ul class="popup-cars">
+                    {% for car in cars %}
+                        <li>
+                            <span class="car-label">{{ car.car_model }} — {{ car.registration_number }}</span>
+                            <button class="edit-car-btn" data-car-id="{{ car.id }}">Edit</button>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No cars added.</p>
+                {% endif %}
+
+                <div class="car-edit-area" style="margin-top:12px; display:none;">
+
+                    <h4>Edit Car</h4>
+
+                    <form id="car-edit-form" method="POST">
+
+                        <input type="hidden" name="car_id" id="car_id">
+
+                        <label>Registration Number</label>
+                        <input type="text" name="registration_number" id="registration_number" required>
+
+                        <label>Model</label>
+                        <input type="text" name="car_model" id="car_model">
+
+                        <label>Brand</label>
+                        <input type="text" name="car_brand" id="car_brand">
+
+                        <label>Colour</label>
+                        <input type="text" name="car_colour" id="car_colour">
+
+                        <div style="margin-top:8px;">
+                            <button type="submit" class="save-btn">Save</button>
+                            <button type="button" id="cancel-car-edit" class="muted-btn">Cancel</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="panel-section" data-panel="payments-history">
+
+                <h3>Payments</h3>
+
+                {% if payments %}
+                    <ul class="popup-payments">
+                    {% for p in payments[:6] %}
+                        <li>₹{{ p.amount }} — {{ p.created_at.strftime('%d %b %Y') }}</li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No payments found.</p>
+                {% endif %}
+
+                <a href="#payment-history" class="popup-link">Open Payment History</a>
+
+            </div>
+
+            <div class="panel-section" data-panel="help-support">
+
+                <h3>Help & Support</h3>
+
+                <div class="help-card">
+
+                    <ul class="help-list">
+
+                        <li class="help-row">
+                            <div class="help-left">
+                                <div class="help-icon">📞</div>
+                                <div>
+                                    <strong>Call support</strong>
+                                    <div class="muted">9 AM – 9 PM, all days</div>
+                                </div>
+                            </div>
+                            <div class="help-action"><a href="tel:+918045690123">+91 80-4569-0123</a></div>
+                        </li>
+
+                        <li class="help-row">
+                            <div class="help-left">
+                                <div class="help-icon">✉️</div>
+                                <div>
+                                    <strong>Email us</strong>
+                                    <div class="muted">We reply within 4 hours</div>
+                                </div>
+                            </div>
+                            <div class="help-action"><a href="mailto:help@clenzo.in">help@clenzo.in</a></div>
+                        </li>
+
+                        <li class="help-row">
+                            <div class="help-left">
+                                <div class="help-icon">💬</div>
+                                <div>
+                                    <strong>Chat with team</strong>
+                                    <div class="muted">Inside the app</div>
+                                </div>
+                            </div>
+                            <div class="help-action"><a href="/chat">Open chat</a></div>
+                        </li>
+
+                        <li class="help-row">
+                            <div class="help-left">
+                                <div class="help-icon">🔒</div>
+                                <div>
+                                    <strong>Privacy & terms</strong>
+                                    <div class="muted">How we handle your data</div>
+                                </div>
+                            </div>
+                            <div class="help-action"><a href="/privacy">View</a></div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="panel-section" data-panel="privacy">
+
+                <h3>Privacy & Terms</h3>
+
+                <p>View our detailed policies and terms:</p>
+
+                <ul class="popup-links">
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms &amp; Conditions</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- sidebar removed; main profile content follows -->
+
+
+
+    <!-- ===================================
+    CONTENT AREA
+    ==================================== -->
+
+    <main class="profile-content">
+
+        <!-- MOBILE ACTIONS: visible on small screens to quickly access panels -->
+        <div class="mobile-actions" aria-hidden="false">
+            <div class="mobile-actions-inner">
+                <button class="mobile-action" data-popup-target="profile-edit">Profile</button>
+                <button class="mobile-action" data-popup-target="cars-list">My Cars</button>
+                <button class="mobile-action" data-popup-target="services-list">Services</button>
+                <button class="mobile-action" data-popup-target="payments-history">Payments</button>
+                <button class="mobile-action" data-popup-target="help-support">Help</button>
+            </div>
+            <button class="mobile-edit-btn" data-popup-target="profile-edit">Edit</button>
+        </div>
+
+
+        <!-- ===================================
+        DASHBOARD
+        ==================================== -->
+
+        <section
+        class="tab-content active-content"
+        id="dashboard">
+
+                <!-- YOUR DETAILS -->
+
+                <div class="content-card profile-details">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+
+                                Your Details
+
+                            </h2>
+
+                            <p>
+
+                                Account information and contact details.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="profile-detail-grid">
+
+                        <div class="profile-detail-left">
+
+                            <img
+                            src="{% if user.profile_image %}{{ url_for('static', filename='uploads/profile_pics/' + user.profile_image) }}{% else %}{{ url_for('static', filename='images/default-profile.png') }}{% endif %}"
+                            class="profile-large-img"
+                            >
+
+                        </div>
+
+                        <div class="profile-detail-right">
+
+                            <h3>{{ user.full_name }}</h3>
+
+                            <p class="muted">+{{ user.phone }}</p>
+
+                            <p class="muted">Member since {{ user.created_at.strftime('%b %Y') if user.created_at }}</p>
+
+                            <div class="detail-pill-row">
+
+                                <div class="detail-pill">
+
+                                    <small>SOCIETY</small>
+
+                                    <strong>{{ user.society or '—' }}</strong>
+
+                                </div>
+
+                                <div class="detail-pill">
+
+                                    <small>ADDRESS</small>
+
+                                    <strong>{{ user.block }} · {{ user.flat_number }}</strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YOUR CAR -->
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>Your Car</h2>
+
+                            <p>Your registered vehicles.</p>
+
+                        </div>
+
+                    </div>
+
+                    {% if cars %}
+
+                        {% for car in cars %}
+
+                        <div class="car-card big">
+
+                            <div>
+
+                                <h3>{{ car.car_model }}</h3>
+
+                                <p>{{ car.car_colour or car.car_brand }}</p>
+
+                            </div>
+
+                            <span class="reg-badge">{{ car.registration_number }}</span>
+
+                        </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-box">No cars added yet.</div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CURRENT PLAN -->
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>Current Plan</h2>
+
+                            <p>Active subscription and billing details.</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="plan-card">
+
+                        <div>
+
+                            <h3>{{ user.active_plan }}</h3>
+
+                            <p>Slot: {{ booking.service_time if booking else '—' }}</p>
+
+                            <p class="muted">Active since {{ booking.service_date if booking }}</p>
+
+                        </div>
+
+                        <div>
+
+                            <button class="modify-plan-btn">Modify plan</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YOUR SCHEDULES -->
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>Your Schedules</h2>
+
+                            <p>Upcoming and past bookings.</p>
+
+                        </div>
+
+                    </div>
+
+                    {% if bookings %}
+
+                        {% for booking in bookings %}
+
+                        <div class="service-history-card">
+
+                            <div class="service-history-top">
+
+                                <div>
+
+                                    <h3>{{ booking.plan_name }}</h3>
+
+                                    <p>{{ booking.service_time }} · {{ booking.service_date }}</p>
+
+                                </div>
+
+                                <span class="service-status-badge">{{ booking.service_status }}</span>
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-box">No schedules found.</div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PAYMENT HISTORY -->
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>Payment History</h2>
+
+                            <p>All payments for your bookings.</p>
+
+                        </div>
+
+                    </div>
+
+                    {% if payments %}
+
+                        {% for p in payments %}
+
+                        <div class="payment-row">
+
+                            <div>
+
+                                <h4>₹{{ p.amount }}</h4>
+
+                                <p class="muted">{{ p.payment_method or '—' }} • {{ p.transaction_id or '—' }}</p>
+
+                            </div>
+
+                            <small>{{ p.created_at.strftime('%d %b %Y') }}</small>
+
+                        </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-box">No payments found.</div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- HELP & SUPPORT -->
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>Help & Support</h2>
+
+                            <p>Reach out to our support team for help.</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="support-box">
+
+                        <p>If you need help with bookings, payments or tracking, contact us:</p>
+
+                        <p><strong>Email:</strong> support@cleanzo.example</p>
+
+                        <p><strong>Phone:</strong> +91 90000 00000</p>
+
+                    </div>
+
+                </div>
+
+        </section>
+
+        <!-- right panel placeholder moved below as sibling to main -->
+
+
+
+        <!-- ===================================
+        MY CARS
+        ==================================== -->
+
+        <section
+        class="tab-content"
+        id="cars">
+
+            <div class="content-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+
+                            My Cars
+
+                        </h2>
+
+                        <p>
+
+                            Your registered vehicles.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% if user.cars %}
+
+                    {% for car in user.cars %}
+
+                    <div class="car-card">
+
+                        <div>
+
+                            <h3>
+
+                                {{ car.car_model }}
+
+                            </h3>
+
+                            <p>
+
+                                {{ car.registration_number }}
+
+                            </p>
+
+                        </div>
+
+                        <span class="clean-badge">
+
+                            Active
+
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-box">
+
+                        No cars added yet.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================
+        SERVICES
+        ==================================== -->
+
+        <section
+        class="tab-content"
+        id="services">
+
+            <div class="content-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+
+                            Service History
+
+                        </h2>
+
+                        <p>
+
+                            Your recent washes and garage work.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% if bookings %}
+
+                    {% for booking in bookings %}
+
+                    <div class="service-history-card">
+
+                        <div class="service-history-top">
+
+                            <div>
+
+                                <h3>
+
+                                    {{ booking.plan_name }}
+
+                                </h3>
+
+                                <p>
+
+                                    {{ booking.service_date }}
+                                    •
+                                    {{ booking.service_time }}
+
+                                </p>
+
+                            </div>
+
+                            <span class="service-status-badge">
+
+                                {{ booking.service_status }}
+
+                            </span>
+
+                        </div>
+
+                        <div class="service-progress-wrapper">
+
+                            <div class="tracking-progress-bar">
+
+                                <div
+                                class="tracking-progress-fill"
+
+                                style="
+                                width:
+                                {{ booking.progress_percentage or 10 }}%;
+                                ">
+                                </div>
+
+                            </div>
+
+                            <small>
+
+                                {{ booking.progress_percentage or 10 }}%
+                                Completed
+
+                            </small>
+
+                        </div>
+
+                        {% if booking.admin_message %}
+
+                        <div class="admin-update-box">
+
+                            <div class="update-top">
+
+                                <span>
+
+                                    💬 Live Update
+
+                                </span>
+
+                                <small>
+
+                                    {{ booking.updated_at.strftime('%d %b %I:%M %p') if booking.updated_at }}
+
+                                </small>
+
+                            </div>
+
+                            <p>
+
+                                {{ booking.admin_message }}
+
+                            </p>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-box">
+
+                        No services found.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================
+        LIVE TRACKING
+        ==================================== -->
+
+        <section
+        class="tab-content"
+        id="tracking">
+
+            <div class="content-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+
+                            Live Tracking
+
+                        </h2>
+
+                        <p>
+
+                            Real-time garage and wash updates.
+
+                        </p>
+
+                    </div>
+
+                    <a href="/tracking">
+
+                        <button class="track-btn">
+
+                            Open Full Tracking
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+                {% if latest_booking %}
+
+                <div class="tracking-preview-box">
+
+                    <div class="tracking-preview-top">
+
+                        <div>
+
+                            <span class="status-label">
+
+                                Current Progress
+
+                            </span>
+
+                            <h3>
+
+                                {{ latest_booking.service_status }}
+
+                            </h3>
+
+                        </div>
+
+                        <div class="tracking-pulse"></div>
+
+                    </div>
+
+                    <div class="tracking-progress-bar">
+
+                        <div
+                        class="tracking-progress-fill"
+
+                        style="
+                        width:
+                        {{ latest_booking.progress_percentage or 10 }}%;
+                        ">
+                        </div>
+
+                    </div>
+
+                    <div class="progress-text">
+
+                        {{ latest_booking.progress_percentage or 10 }}%
+                        Completed
+
+                    </div>
+
+                    {% if latest_booking.admin_message %}
+
+                    <div class="admin-update-box">
+
+                        <div class="update-top">
+
+                            <span>
+
+                                💬 Latest Tracking Update
+
+                            </span>
+
+                            <small>
+
+                                {{ latest_booking.updated_at.strftime('%d %b %I:%M %p') if latest_booking.updated_at }}
+
+                            </small>
+
+                        </div>
+
+                        <p>
+
+                            {{ latest_booking.admin_message }}
+
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% else %}
+
+                <div class="empty-box">
+
+                    No active service available.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================
+        NOTIFICATIONS
+        ==================================== -->
+
+        <section
+        class="tab-content"
+        id="notifications">
+
+            <div class="content-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+
+                            Notifications
+
+                        </h2>
+
+                        <p>
+
+                            Latest service alerts and updates.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% if bookings %}
+
+                    {% for booking in bookings %}
+
+                        {% if booking.admin_message %}
+
+                        <div class="notification-card">
+
+                            <div class="notification-icon">
+
+                                🔔
+
+                            </div>
+
+                            <div class="notification-content">
+
+                                <h4>
+
+                                    {{ booking.service_status }}
+
+                                </h4>
+
+                                <p>
+
+                                    {{ booking.admin_message }}
+
+                                </p>
+
+                                <small>
+
+                                    {{ booking.updated_at.strftime('%d %b %Y • %I:%M %p') if booking.updated_at }}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-box">
+
+                        No notifications available.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Subscription section removed -->
+
+
+
+        <!-- ===================================
+        PROFILE SETTINGS
+        ==================================== -->
+
+        <section
+        class="tab-content"
+        id="profile-settings">
+
+            <div class="content-card">
+
+                <h2>
+
+                    Profile Settings
+
+                </h2>
+
+
+                <!-- UPLOAD -->
+
+                <form
+                action="/upload-profile-image"
+                method="POST"
+                enctype="multipart/form-data">
+
+                    <input
+                    type="file"
+                    name="profile_image"
+                    required
+                    class="file-input"
+                    >
+
+                    <button
+                    type="submit"
+                    class="save-btn">
+
+                        Upload Image
+
+                    </button>
+
+                </form>
+
+
+                <!-- DELETE -->
+
+                <a href="/delete-profile-image">
+
+                    <button class="delete-btn">
+
+                        Delete Profile Image
+
+                    </button>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    
+
+</div>
+
+<!-- Image modal (WhatsApp-like) -->
+<div id="image-modal" class="image-modal" aria-hidden="true">
+    <div class="image-modal-backdrop"></div>
+    <div class="image-modal-inner">
+        <div class="image-modal-preview">
+            <img id="image-modal-img" src="{% if user.profile_image %}{{ url_for('static', filename='uploads/profile_pics/' + user.profile_image) }}{% else %}{{ url_for('static', filename='images/default-profile.png') }}{% endif %}" alt="Profile">
+        </div>
+        <div class="image-modal-actions">
+            <input type="file" id="modal-profile-input" accept="image/*" style="display:none">
+            <button type="button" id="modal-view-photo" class="muted-btn">View Photo</button>
+            <button type="button" id="modal-change-photo" class="save-btn">Change Photo</button>
+            <button type="button" id="modal-crop-upload" class="save-btn" style="display:none">Crop & Upload</button>
+            <button type="button" id="modal-remove-photo" class="muted-btn">Remove Photo</button>
+            <button type="button" id="modal-close" class="muted-btn">Cancel</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Cropper then profile script (after modal exists) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
+{% endblock %}

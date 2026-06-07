@@ -1,0 +1,384 @@
+.login-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+
+    gap: 60px;
+}
+
+
+/* LEFT */
+
+.login-left {
+
+    flex: 1;
+
+    max-width: 550px;
+}
+
+
+/* BRAND */
+
+.brand-title {
+
+    font-size: 85px;
+
+    font-weight: 900;
+
+    margin-bottom: 20px;
+
+    line-height: 1.1;
+}
+
+
+.brand-title span {
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #39cfff
+    );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.brand-subtitle {
+
+    font-size: 22px;
+
+    color: #8ca7c5;
+
+    margin-bottom: 40px;
+
+    line-height: 1.6;
+}
+
+
+/* FEATURES */
+
+.brand-features {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+.feature-box {
+
+    background: rgba(255,255,255,0.04);
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    transition: 0.3s;
+}
+
+
+.feature-box:hover {
+
+    border: 1px solid #39cfff;
+
+    transform: translateY(-5px);
+}
+
+
+.feature-box h3 {
+
+    margin-bottom: 10px;
+
+    color: white;
+}
+
+
+.feature-box p {
+
+    color: #8ca7c5;
+
+    line-height: 1.5;
+}
+
+
+/* RIGHT */
+
+.login-right {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+
+/* CARD */
+
+.login-card {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    background: rgba(9, 22, 38, 0.95);
+
+    border-radius: 24px;
+
+    padding: 50px;
+
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
+}
+
+
+/* TITLE */
+
+.login-title {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+
+.login-subtitle {
+
+    color: #8ca7c5;
+
+    font-size: 18px;
+
+    margin-bottom: 40px;
+}
+
+
+/* INPUTS */
+
+.input-group {
+
+    margin-bottom: 25px;
+}
+
+
+.input-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #7fa3c7;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+.input-group input {
+
+    width: 100%;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.04);
+
+    color: white;
+
+    font-size: 17px;
+
+    outline: none;
+}
+
+
+.input-group input::placeholder {
+
+    color: #90a8c5;
+}
+
+
+/* BUTTON */
+
+.login-btn {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 20px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: linear-gradient(
+        90deg,
+        #34cfff,
+        #50bfff
+    );
+
+    color: #02101d;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.login-btn:hover {
+
+    transform: scale(1.02);
+
+    box-shadow: 0px 0px 20px rgba(76, 201, 255, 0.5);
+}
+
+.forgot-password{
+    margin-top: 16px;
+    text-align: right;
+}
+
+.forgot-password a{
+    color: #39cfff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.forgot-password a:hover{
+    text-decoration: underline;
+}
+
+/* GOOGLE BUTTON */
+.google-login-wrap{
+    margin-top:16px;
+    text-align:center;
+}
+.google-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px;
+    border-radius:12px;
+    background: linear-gradient(90deg,#2ea0ff,#1985ff);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 6px 18px rgba(8,30,44,0.35);
+    border: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.google-btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(8,30,44,0.45); }
+.google-btn .google-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    background:#ffffff;
+    border-radius:8px;
+    padding:6px;
+}
+.google-btn .google-icon{ box-shadow: 0 4px 10px rgba(2,16,26,0.18); }
+.google-btn .google-icon svg{ display:block; width:100%; height:100%; }
+.google-btn .google-text{ display:inline-block; line-height:1; }
+
+/* Make Google button full-width inside the card on smaller screens */
+@media(max-width:992px){
+    .login-card .google-btn{ width:100%; justify-content:center; }
+}
+
+
+/* REGISTER LINK */
+
+.register-link {
+
+    margin-top: 25px;
+
+    text-align: center;
+}
+
+
+.register-link p {
+
+    color: #91a8c7;
+
+    margin-bottom: 8px;
+}
+
+
+.register-link a {
+
+    color: #39cfff;
+
+    font-weight: bold;
+}
+
+
+/* MOBILE */
+
+@media(max-width: 992px) {
+
+    .login-page {
+
+        flex-direction: column;
+
+        gap: 40px;
+    }
+
+    .login-left {
+
+        text-align: center;
+    }
+
+    .brand-title {
+
+        font-size: 60px;
+    }
+
+}
+
+
+@media(max-width: 768px) {
+
+    .login-page {
+
+        padding: 20px;
+    }
+
+    .login-card {
+
+        padding: 30px;
+    }
+
+    .brand-title {
+
+        font-size: 48px;
+    }
+
+    .brand-subtitle {
+
+        font-size: 18px;
+    }
+
+}

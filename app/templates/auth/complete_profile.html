@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+<div class="register-page">
+    <div class="register-right" style="margin:auto;max-width:520px;">
+        <div class="register-card">
+            <h2>Complete Your Profile</h2>
+            <p>Please provide the missing details to finish account setup.</p>
+
+            <form method="POST">
+                <div class="input-group">
+                    <label>PHONE NUMBER</label>
+                    <input type="text" name="phone" placeholder="10-digit mobile number" value="{{ user.phone if user.phone and not user.phone.startswith('google_') else '' }}" required>
+                </div>
+
+                <div class="input-group">
+                    <label>SOCIETY / APARTMENT</label>
+                    <input type="text" name="society" placeholder="Your society" value="{{ user.society or '' }}">
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group" style="flex:1;margin-right:8px;">
+                        <label>TOWER / BLOCK</label>
+                        <input type="text" name="block" placeholder="e.g. Tower A" value="{{ user.block or '' }}">
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>FLAT / HOUSE NO.</label>
+                        <input type="text" name="flat_number" placeholder="e.g. 1204" value="{{ user.flat_number or '' }}">
+                    </div>
+                </div>
+
+                <hr style="opacity:0.06;margin:18px 0;">
+                <h4>Car (optional)</h4>
+
+                <div class="input-group">
+                    <label>CAR BRAND</label>
+                    <input type="text" name="car_brand" placeholder="Choose brand">
+                </div>
+
+                <div class="input-group">
+                    <label>CAR MODEL</label>
+                    <input type="text" name="car_model" placeholder="Choose model">
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group" style="flex:1;margin-right:8px;">
+                        <label>COLOUR</label>
+                        <input type="text" name="car_color" placeholder="e.g. Pearl White">
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>REGISTRATION NO.</label>
+                        <input type="text" name="car_registration" placeholder="E.G. KA01AB1234">
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;margin-top:18px;">
+                    <a href="{{ url_for('auth.logout') }}" class="nav-btn" style="flex:1;text-align:center;">Logout</a>
+                    <button class="login-btn" type="submit" style="flex:1;">Save & Continue →</button>
+                </div>
+            </form>
+
+            <p style="text-align:center;margin-top:12px;">Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

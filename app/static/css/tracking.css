@@ -1,0 +1,1203 @@
+.tracking-page {
+
+    padding: 60px 40px;
+
+    min-height: 100vh;
+
+    background:
+    linear-gradient(
+        180deg,
+        #071421,
+        #091b2d
+    );
+}
+
+
+/* ===================================
+HEADER
+=================================== */
+
+.tracking-header {
+
+    text-align: center;
+
+    margin-bottom: 60px;
+}
+
+
+.tracking-header h1 {
+
+    font-size: 64px;
+
+    margin-bottom: 20px;
+
+    color: white;
+
+    font-weight: 900;
+}
+
+
+.tracking-header span {
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #39cfff
+    );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.tracking-header p {
+
+    color: #91a8c7;
+
+    font-size: 20px;
+
+    max-width: 650px;
+
+    margin: auto;
+
+    line-height: 1.7;
+}
+
+
+/* ===================================
+SUMMARY CARD
+=================================== */
+
+.booking-summary-card {
+
+    background: rgba(255,255,255,0.05);
+
+    border-radius: 28px;
+
+    padding: 30px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 40px;
+
+    border: 1px solid rgba(
+        57,
+        207,
+        255,
+        0.12
+    );
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.3s;
+}
+
+
+.booking-summary-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color: rgba(
+        57,
+        207,
+        255,
+        0.25
+    );
+}
+
+
+.small-text {
+
+    color: #8fa8c4;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+}
+
+
+.booking-summary-card h2 {
+
+    font-size: 42px;
+
+    color: white;
+
+    margin-bottom: 14px;
+}
+
+
+.booking-price {
+
+    font-size: 50px;
+
+    font-weight: 900;
+
+    color: #39cfff;
+
+    text-align: right;
+}
+
+
+.booking-id-box {
+
+    margin-top: 14px;
+
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+    color: #9fb8d2;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+
+/* ===================================
+SERVICE CATEGORY
+=================================== */
+
+.service-category-badge {
+
+    display: inline-block;
+
+    padding: 10px 18px;
+
+    border-radius: 30px;
+
+    background: rgba(
+        57,
+        207,
+        255,
+        0.12
+    );
+
+    color: #39cfff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    border: 1px solid rgba(
+        57,
+        207,
+        255,
+        0.2
+    );
+}
+
+
+/* ===================================
+GRID
+=================================== */
+
+.tracking-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(320px, 1fr)
+    );
+
+    gap: 25px;
+
+    margin-bottom: 50px;
+}
+
+
+/* ===================================
+BOX
+=================================== */
+
+.tracking-box {
+
+    background: rgba(255,255,255,0.05);
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+    transition: 0.3s;
+}
+
+
+.tracking-box:hover {
+
+    transform: translateY(-4px);
+
+    border-color: rgba(
+        57,
+        207,
+        255,
+        0.25
+    );
+}
+
+
+.tracking-box h3 {
+
+    margin-bottom: 20px;
+
+    color: #39cfff;
+
+    font-size: 24px;
+}
+
+
+.tracking-box p {
+
+    margin-bottom: 14px;
+
+    color: #dce7f2;
+
+    line-height: 1.7;
+}
+
+
+/* ===================================
+STATUS SECTION
+=================================== */
+
+.status-section {
+
+    margin-bottom: 50px;
+
+    background: rgba(255,255,255,0.04);
+
+    border-radius: 30px;
+
+    padding: 35px;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+}
+
+
+.section-title-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+
+.status-section h2 {
+
+    font-size: 38px;
+
+    color: white;
+}
+
+
+/* ===================================
+LIVE STATUS BADGE
+=================================== */
+
+.live-status-badge {
+
+    padding: 14px 22px;
+
+    border-radius: 50px;
+
+    font-weight: 700;
+
+    border: 1px solid transparent;
+}
+
+
+.pending-badge {
+
+    background: rgba(
+        255,
+        179,
+        71,
+        0.12
+    );
+
+    color: #ffb347;
+
+    border-color: rgba(
+        255,
+        179,
+        71,
+        0.2
+    );
+}
+
+
+.progress-badge {
+
+    background: rgba(
+        57,
+        207,
+        255,
+        0.12
+    );
+
+    color: #39cfff;
+
+    border-color: rgba(
+        57,
+        207,
+        255,
+        0.2
+    );
+}
+
+
+.completed-badge {
+
+    background: rgba(
+        0,
+        255,
+        128,
+        0.12
+    );
+
+    color: #7dffb0;
+
+    border-color: rgba(
+        125,
+        255,
+        176,
+        0.2
+    );
+}
+
+
+/* ===================================
+PROGRESS BAR
+=================================== */
+
+.tracking-progress-wrapper {
+
+    margin-bottom: 45px;
+}
+
+
+.tracking-progress-bar {
+
+    width: 100%;
+
+    height: 14px;
+
+    border-radius: 50px;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.06
+    );
+
+    overflow: hidden;
+}
+
+
+.tracking-progress-fill {
+
+    height: 100%;
+
+    border-radius: 50px;
+
+    background: linear-gradient(
+        90deg,
+        #34cfff,
+        #50bfff
+    );
+
+    box-shadow:
+    0px 0px 20px rgba(
+        57,
+        207,
+        255,
+        0.35
+    );
+
+    transition: 1s ease;
+}
+
+
+.progress-text {
+
+    margin-top: 14px;
+
+    color: #8ea8c7;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* ===================================
+TIMELINE
+=================================== */
+
+.status-timeline {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+}
+
+
+.timeline-item {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    opacity: 0.35;
+
+    transition: 0.3s;
+
+    position: relative;
+}
+
+
+.active-step {
+
+    opacity: 1;
+}
+
+
+.completed-step .timeline-dot {
+
+    background: #7dffb0;
+
+    box-shadow:
+    0px 0px 18px rgba(
+        125,
+        255,
+        176,
+        0.5
+    );
+}
+
+
+.timeline-dot {
+
+    width: 18px;
+
+    min-width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #39cfff;
+
+    margin-top: 8px;
+
+    box-shadow:
+    0px 0px 15px rgba(
+        57,
+        207,
+        255,
+        0.4
+    );
+}
+
+
+.timeline-content {
+
+    background: rgba(255,255,255,0.05);
+
+    padding: 18px 22px;
+
+    border-radius: 18px;
+
+    width: 100%;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+    transition: 0.3s;
+}
+
+
+.timeline-content:hover {
+
+    border-color: rgba(
+        57,
+        207,
+        255,
+        0.15
+    );
+}
+
+
+.timeline-content h4 {
+
+    color: white;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+}
+
+
+.timeline-content p {
+
+    color: #8ea8c7;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+/* ===================================
+CURRENT STATUS CARD
+=================================== */
+
+.current-status-card {
+
+    background: rgba(255,255,255,0.05);
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+    margin-bottom: 40px;
+}
+
+
+/* ===================================
+HEADER ROW
+=================================== */
+
+.status-header-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.current-status-card h3 {
+
+    color: white;
+
+    font-size: 28px;
+}
+
+
+/* ===================================
+STATUS INDICATOR
+=================================== */
+
+.status-indicator {
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #39cfff;
+
+    box-shadow:
+    0px 0px 18px rgba(
+        57,
+        207,
+        255,
+        0.5
+    );
+
+    animation: pulseStatus 1.5s infinite;
+}
+
+
+.completed-indicator {
+
+    background: #7dffb0;
+
+    box-shadow:
+    0px 0px 18px rgba(
+        125,
+        255,
+        176,
+        0.5
+    );
+}
+
+
+@keyframes pulseStatus {
+
+    0% {
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        transform: scale(1.15);
+
+    }
+
+    100% {
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+/* ===================================
+LIVE STATUS
+=================================== */
+
+.live-status {
+
+    display: inline-block;
+
+    padding: 16px 28px;
+
+    border-radius: 50px;
+
+    background: rgba(
+        0,
+        255,
+        128,
+        0.12
+    );
+
+    color: #7dffb0;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 28px;
+}
+
+
+/* ===================================
+MESSAGE HEADER
+=================================== */
+
+.message-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.message-header span {
+
+    font-weight: 700;
+}
+
+
+.message-header small {
+
+    color: #8ea8c7;
+
+    font-size: 12px;
+}
+
+
+/* ===================================
+ADMIN MESSAGE
+=================================== */
+
+.admin-live-message {
+
+    background: rgba(
+        57,
+        207,
+        255,
+        0.08
+    );
+
+    border: 1px solid rgba(
+        57,
+        207,
+        255,
+        0.15
+    );
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    color: #dce8f5;
+
+    margin-bottom: 20px;
+
+    line-height: 1.8;
+}
+
+
+.admin-live-message p {
+
+    color: #dce8f5;
+}
+
+
+/* ===================================
+GARAGE NOTE
+=================================== */
+
+.garage-note-box {
+
+    background: rgba(
+        255,
+        196,
+        0,
+        0.08
+    );
+
+    border: 1px solid rgba(
+        255,
+        196,
+        0,
+        0.12
+    );
+
+    color: #ffd86b;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    margin-bottom: 24px;
+
+    line-height: 1.7;
+}
+
+
+.garage-note-box p {
+
+    color: #ffe7a3;
+}
+
+
+/* ===================================
+GARAGE STATUS
+=================================== */
+
+.garage-status-box {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.04
+    );
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    margin-bottom: 22px;
+}
+
+
+.garage-status-box h4 {
+
+    color: #39cfff;
+
+    margin-bottom: 14px;
+}
+
+
+.garage-status-badge {
+
+    display: inline-block;
+
+    padding: 12px 18px;
+
+    border-radius: 30px;
+
+    background: rgba(
+        57,
+        207,
+        255,
+        0.1
+    );
+
+    color: #39cfff;
+
+    font-weight: 700;
+}
+
+
+/* ===================================
+ASSIGNED BOX
+=================================== */
+
+.assigned-box {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.04
+    );
+
+    border-radius: 18px;
+
+    padding: 22px;
+}
+
+
+.assigned-box h4 {
+
+    color: #39cfff;
+
+    margin-bottom: 16px;
+}
+
+
+.assigned-box p {
+
+    color: #dce7f2;
+
+    margin-bottom: 10px;
+}
+
+
+/* ===================================
+COMPLETION CARD
+=================================== */
+
+.completion-card {
+
+    background: linear-gradient(
+        135deg,
+        rgba(0,255,128,0.08),
+        rgba(57,207,255,0.08)
+    );
+
+    border: 1px solid rgba(
+        125,
+        255,
+        176,
+        0.15
+    );
+
+    border-radius: 30px;
+
+    padding: 45px;
+
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+
+.completion-icon {
+
+    font-size: 80px;
+
+    margin-bottom: 20px;
+}
+
+
+.completion-card h2 {
+
+    color: white;
+
+    font-size: 38px;
+
+    margin-bottom: 18px;
+}
+
+
+.completion-card p {
+
+    color: #b6cadf;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+
+.pickup-time {
+
+    margin-top: 20px;
+
+    color: #7dffb0;
+
+    font-weight: 700;
+}
+
+
+/* ===================================
+PAYMENT CARD
+=================================== */
+
+.payment-status-card {
+
+    background: rgba(255,255,255,0.05);
+
+    border-radius: 28px;
+
+    padding: 30px;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+}
+
+
+.payment-status-card h3 {
+
+    color: white;
+
+    margin-bottom: 20px;
+
+    font-size: 24px;
+}
+
+
+.payment-status-badge {
+
+    display: inline-block;
+
+    padding: 14px 24px;
+
+    border-radius: 40px;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.payment-paid {
+
+    background: rgba(
+        0,
+        255,
+        128,
+        0.12
+    );
+
+    color: #7dffb0;
+}
+
+
+.payment-pending {
+
+    background: rgba(
+        255,
+        179,
+        71,
+        0.12
+    );
+
+    color: #ffb347;
+}
+
+
+.payment-status-card p {
+
+    color: #a8bfd7;
+}
+
+
+/* ===================================
+MOBILE
+=================================== */
+
+@media(max-width: 768px) {
+
+    .tracking-page {
+
+        padding: 40px 20px;
+    }
+
+    .tracking-header h1 {
+
+        font-size: 42px;
+    }
+
+    .tracking-header p {
+
+        font-size: 16px;
+    }
+
+    .booking-summary-card {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .booking-summary-card h2 {
+
+        font-size: 30px;
+    }
+
+    .booking-price {
+
+        font-size: 38px;
+
+        text-align: left;
+    }
+
+    .status-section {
+
+        padding: 25px;
+    }
+
+    .status-section h2 {
+
+        font-size: 30px;
+    }
+
+    .timeline-content {
+
+        padding: 16px;
+    }
+
+    .timeline-content h4 {
+
+        font-size: 16px;
+    }
+
+    .completion-card {
+
+        padding: 30px 20px;
+    }
+
+    .completion-card h2 {
+
+        font-size: 28px;
+    }
+
+    .current-status-card {
+
+        padding: 25px;
+    }
+
+}
+.service-tracker{
+    position:relative;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:60px 20px;
+}
+
+.tracker-line{
+    position:absolute;
+    top:20px;
+    left:60px;
+    right:60px;
+    height:4px;
+    background:#ffffff;
+    z-index:1;
+}
+
+.tracker-line-active{
+    position:absolute;
+    top:20px;
+    left:60px;
+    height:4px;
+    background:#36d76a;
+    z-index:2;
+    transition:0.5s ease;
+}
+
+.tracker-step{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:white;
+    color:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:3;
+    font-weight:bold;
+}
+
+.tracker-step.completed{
+    background:#36d76a;
+    color:white;
+}
+
+.tracker-step span{
+    position:absolute;
+    top:55px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+    white-space:nowrap;
+    font-size:14px;
+}
