@@ -62,6 +62,8 @@ login_manager.login_view = 'auth.login'
 login_manager.login_message = None
 
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 # ====================================
 # CREATE APP
 # ====================================
@@ -69,6 +71,9 @@ login_manager.login_message = None
 def create_app():
 
     app = Flask(__name__)
+
+    # Render ke HTTPS proxy ko handle karne ke liye yeh line add ki hai
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     # ====================================
     # CONFIG
